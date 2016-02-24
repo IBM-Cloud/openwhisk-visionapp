@@ -1,4 +1,4 @@
-# Vision App - a sample iOS app for image tagging and face detection built with OpenWhisk
+# Vision App - a sample iOS app for image tagging and face detection built with IBM Bluemix OpenWhisk
 
 Vision App is a sample iOS application to automatically tag images and detect faces
 by using IBM visual recognition technologies.
