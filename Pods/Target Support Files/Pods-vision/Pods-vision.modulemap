@@ -1,0 +1,6 @@
+framework module Pods_vision {
+  umbrella header "Pods-vision-umbrella.h"
+
+  export *
+  module * { export * }
+}

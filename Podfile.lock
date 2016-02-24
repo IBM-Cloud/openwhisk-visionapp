@@ -1,0 +1,26 @@
+PODS:
+  - Alamofire (3.1.2)
+  - AlamofireImage (2.3.0):
+    - Alamofire (~> 3.1)
+  - JGProgressHUD (1.3.1)
+  - RDHCollectionViewGridLayout (1.2.2)
+  - SwiftyJSON (2.3.1)
+  - TagListView (0.4.2)
+
+DEPENDENCIES:
+  - Alamofire (= 3.1.2)
+  - AlamofireImage (= 2.3.0)
+  - JGProgressHUD (= 1.3.1)
+  - RDHCollectionViewGridLayout (= 1.2.2)
+  - SwiftyJSON (= 2.3.1)
+  - TagListView (= 0.4.2)
+
+SPEC CHECKSUMS:
+  Alamofire: 7c16ca65f3c7e681fd925fd7f2dec7747ff96855
+  AlamofireImage: 4013fb5b99b10117bf2554a67b9bd2231d476b45
+  JGProgressHUD: 153053a21d81208cb5f659691996bcefce6a9885
+  RDHCollectionViewGridLayout: 9a0a574d47335101a417acee7ab9cb030373641b
+  SwiftyJSON: 592b53bee5ef3dd9b3bebc6b9cb7ee35426ae8c3
+  TagListView: 38700330380d7c874f8f9c381ce651d822f11ebf
+
+COCOAPODS: 0.39.0

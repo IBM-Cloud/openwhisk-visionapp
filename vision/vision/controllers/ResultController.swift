@@ -1,0 +1,197 @@
+/**
+ * Copyright 2016 IBM Corp. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the “License”);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *  https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an “AS IS” BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+import UIKit
+import TagListView
+import JGProgressHUD
+import AlamofireImage
+
+/// Triggers the processing of the selected image and displays the results
+class ResultController: UIViewController, TagListViewDelegate {
+  
+  @IBOutlet weak var backgroundImageView: UIImageView!
+  @IBOutlet weak var imageView: UIImageView!
+
+  @IBOutlet weak var facesContainerHeight: NSLayoutConstraint!
+  @IBOutlet weak var facesContainer: UIView!
+  
+  @IBOutlet weak var imageTags: TagListView!
+  
+  var imageToProcess: UIImage!
+  var facesController: FacesController!
+  var originalFacesContainerHeight: CGFloat!
+
+  override func viewDidLoad() {
+    originalFacesContainerHeight = facesContainerHeight.constant
+
+    imageTags.delegate = self
+    
+    if (UIDevice.currentDevice().userInterfaceIdiom == UIUserInterfaceIdiom.Pad) {
+      imageTags.textFont = UIFont.systemFontOfSize(40)
+    } else {
+      imageTags.textFont = UIFont.systemFontOfSize(20)
+    }
+    imageTags.alignment = .Center
+  }
+  
+  func setImage(imageToProcess: UIImage) {
+    self.imageToProcess = imageToProcess
+  }
+  
+  override func viewWillAppear(animated: Bool) {
+    navigationController?.setNavigationBarHidden(false, animated: animated)
+    imageView.image = imageToProcess
+    backgroundImageView.image = BlurFilter().filter(imageToProcess)
+    enableGhostContent();
+  }
+  
+  override func viewDidAppear(animated: Bool) {
+    processImage()
+  }
+  
+  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    if (segue.identifier == "Faces") {
+      facesController = segue.destinationViewController as! FacesController
+    }
+  }
+  
+  /// Processes the image
+  private func processImage() {
+    let progressHUD = JGProgressHUD(style: .Dark)
+    progressHUD.indicatorView = JGProgressHUDPieIndicatorView(HUDStyle: .Dark)
+    progressHUD.showInView(view, animated: true)
+    progressHUD.textLabel.text = "Preparing..."
+    
+    ServerlessAPI().process(imageToProcess,
+      onProgress: { (phase, bytesWritten, totalBytesWritten, totalBytesExpectedToWrite) -> Void in
+        progressHUD.textLabel.text = "Uploading..."
+        if (bytesWritten != -1) {
+          dispatch_async(dispatch_get_main_queue()) {
+            progressHUD.setProgress(Float(totalBytesWritten) / Float(totalBytesExpectedToWrite), animated: true)
+            if (totalBytesWritten == totalBytesExpectedToWrite) {
+              progressHUD.indicatorView = JGProgressHUDIndeterminateIndicatorView(HUDStyle: .Dark)
+              progressHUD.textLabel.text = "Analyzing"
+            } else {
+              progressHUD.textLabel.text = String(format: "Uploading... %d%%", totalBytesWritten * 100 / totalBytesExpectedToWrite)
+            }
+            print("Total bytes written: \(totalBytesWritten) / \(totalBytesExpectedToWrite)")
+          }
+        }
+      },
+      onSuccess: { (result) -> Void in
+        dispatch_async(dispatch_get_main_queue()) {
+          progressHUD.dismissAnimated(true)
+          self.disableGhostContent()
+          self.updateWithResult(result)
+        }
+      },
+      onFailure: { () -> Void in
+        dispatch_async(dispatch_get_main_queue()) {
+          progressHUD.dismissAnimated(true)
+          self.disableGhostContent()
+        }
+      }
+    )
+  }
+  
+  /// Fills the UI with random data while the image is being processed
+  private func enableGhostContent() {
+    facesController.setFakeFaces(true)
+    imageTags.removeAllTags()
+    let source = " . . . . . . . . . "
+    let count = UInt32(source.characters.count)
+    for _ in 1...30 {
+      let randomSize = max(5, Int(arc4random_uniform(count)))
+      imageTags.addTag(source[source.startIndex...source.startIndex.advancedBy(randomSize)])
+    }
+  }
+  
+  /// Removes the random data before showing the actual result
+  private func disableGhostContent() {
+    facesController.setFakeFaces(false)
+    imageTags.removeAllTags()
+  }
+  
+  /// Updates the user interface with the analysis results
+  private func updateWithResult(result: Result) {
+    print("Refreshing UI with results...", result);
+    
+    // sort the faces from left to right
+    let faces = result.faces().sort { (face1, face2) -> Bool in
+      return face1["positionX"].intValue < face2["positionX"].intValue
+    }
+    // add a tag for each identified identity
+    for face in faces {
+      if (face["identity"].isExists()) {
+        imageTags.addTag(face["identity"]["name"].string!).selected = true
+      }
+    }
+    
+    facesController.setFaces(faces, image: imageToProcess)
+
+    // hide the faces view if no face found
+    if (faces.count > 0) {
+      facesContainer.hidden = false
+      facesContainerHeight.constant = originalFacesContainerHeight
+    } else {
+      facesContainer.hidden = true
+      facesContainerHeight.constant = 0
+    }
+    
+    // add tags for every keyword and tag, highlighting the one with higher score
+    for keyword in result.keywords() {
+      // this is how alchemy tells us there is no tagView, don't show this
+      if (keyword["text"].string! == "NO_TAGS") {
+        continue
+      }
+      let tagView = imageTags.addTag(keyword["text"].string!)
+      if (keyword["score"].doubleValue > 0.90) {
+        tagView.selected = true
+      }
+    }
+    
+    for tag in result.tags() {
+      let tagView = imageTags.addTag(tag["label_name"].string!)
+      if (tag["label_score"].doubleValue > 0.70) {
+        tagView.selected = true
+      }
+    }
+  }
+  
+  func tagPressed(title: String, tagView: TagView, sender: TagListView) {
+    tagView.selected = !tagView.selected
+  }
+  
+  @IBAction func shareResult(sender: AnyObject) {
+    var sharingItems = [AnyObject]()
+    
+    // add the image to the list of shared items
+    sharingItems.append(imageToProcess)
+    
+    // then all selected tags, plus the suffix configurable from the Settings app for Vision
+    var text = ""
+    for tag in imageTags.selectedTags() {
+      text += " #" + tag.currentTitle!.camelCasedString
+    }
+    text = text + " " + NSUserDefaults.standardUserDefaults().stringForKey("share_suffix")!
+    sharingItems.append(text)
+    
+    // show the iOS share screen
+    let activityViewController = UIActivityViewController(activityItems: sharingItems, applicationActivities: nil)
+    activityViewController.popoverPresentationController?.sourceView = sender as? UIButton
+    self.presentViewController(activityViewController, animated: true, completion: nil)
+  }
+  
+}
