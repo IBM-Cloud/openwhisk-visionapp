@@ -39,7 +39,7 @@ people, buildings, objects in the picture. Share the results with your network.
     /* styling */
     cloudant [shape=circle style=filled color="%234E96DB" fontcolor=white label="Cloudant"]
     watson [shape=circle style=filled color="%234E96DB" fontcolor=white label="Watson\\nVisual\\nRecognition"]
-    alchemy [shape=circle style=filled color="%234E96DB" fontcolor=white label="Alchemy\\nAPI"]
+    alchemy [shape=circle style=filled color="%234E96DB" fontcolor=white label="Alchemy\\nVision"]
     openwhisk [shape=circle style=filled color="%2324B643" fontcolor=white label="OpenWhisk"]
   }
 )

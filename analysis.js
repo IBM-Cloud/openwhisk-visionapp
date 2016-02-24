@@ -17,7 +17,7 @@
 /**
  * Called by Whisk.
  * 
- * It expects the following parameters as attributes or "args"
+ * It expects the following parameters as attributes of "args"
  * - cloudantUrl: "https://username:password@host"
  * - cloudantDbName: "openwhisk-vision"
  * - alchemyKey: "123456"
