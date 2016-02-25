@@ -16,6 +16,7 @@
 import UIKit
 import Alamofire
 import SwiftyJSON
+import OpenWhisk
 
 /**
  * Processes images with IBM Bluemix OpenWhisk
@@ -23,14 +24,18 @@ import SwiftyJSON
 class ServerlessAPI {
   
   // TODO: Change to your Cloudant credentials url
-  let CLOUDANT_URL = "https://username:password@host.cloudant.com"
-  let CLOUDANT_DB_NAME = "openwhisk-vision"
+  let CloudantUrl = "https://username:password@host.cloudant.com"
+  let CloudantDbName = "openwhisk-vision"
   
   // TODO: Change YOUR_NAMESPACE to the namespace where the vision-analysis action was created
-  let OPENWHISK_ACTION_URL =  "https://openwhisk.ng.bluemix.net:443/api/v1/namespaces/YOUR_NAMESPACE/actions/vision-analysis?blocking=true"
+  // You can get the value with "wsk property get --namespace"
+  let ActionNamespace = "YOUR_NAMESPACE"
+  let ActionName = "vision-analysis"
   
-  // TODO: Put your OpenWhisk authorization key here
-  let OPENWHISK_AUTHORIZATION_KEY = ""
+  // TODO: Put your OpenWhisk key and token here
+  // You can obtain the values at https://new-console.ng.bluemix.net/openwhisk/sdk/ios
+  let WhiskAppKey = ""
+  let WhiskAppSecret = ""
   
   /**
    * Processes an image.
@@ -47,7 +52,7 @@ class ServerlessAPI {
   /// Step 1 - Create a new document in Cloudant
   private func createDocument(image: UIImage, onProgress: (phase: String, bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) -> Void, onSuccess: (Result) -> Void, onFailure: () -> Void) {
     print("Creating temporary image document...")
-    Alamofire.request(.POST, CLOUDANT_URL + "/" + CLOUDANT_DB_NAME, parameters: [ "type": "temp-image" ], encoding: .JSON)
+    Alamofire.request(.POST, "\(CloudantUrl)/\(CloudantDbName)", parameters: [ "type": "temp-image" ], encoding: .JSON)
       .responseJSON { (response) -> Void in
         switch (response.result) {
         case .Success:
@@ -68,7 +73,7 @@ class ServerlessAPI {
     let imageData = UIImageJPEGRepresentation(image, 0.3)
     Alamofire.upload(
       .PUT,
-      "\(CLOUDANT_URL)/\(CLOUDANT_DB_NAME)/\(documentId)/image.jpg?rev=\(documentRev)",
+      "\(CloudantUrl)/\(CloudantDbName)/\(documentId)/image.jpg?rev=\(documentRev)",
       data: imageData!)
       .progress { (bytesWritten, totalBytesWritten, totalBytesExpectedToWrite) -> Void in
         onProgress(phase: "Uploading...", bytesWritten: bytesWritten, totalBytesWritten: totalBytesWritten, totalBytesExpectedToWrite: totalBytesExpectedToWrite)
@@ -89,26 +94,29 @@ class ServerlessAPI {
   private func analyze(documentId: String,  documentRev: String, onSuccess: (Result) -> Void, onFailure: () -> Void) {
     print("Triggering analysis of image...")
     
-    let basicAuthHeader = "Basic " +
-      OPENWHISK_AUTHORIZATION_KEY.dataUsingEncoding(NSUTF8StringEncoding)!
-        .base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
     
-    Alamofire.request(.POST, OPENWHISK_ACTION_URL,
-      headers: ["Authorization" : basicAuthHeader ],
-      parameters: [ "imageDocumentId" : documentId ],
-      encoding: .JSON)
-      .responseJSON { (response) -> Void in
-        // cleanup
+    let credentials = WhiskCredentials(accessKey: WhiskAppKey, accessToken: WhiskAppSecret)
+    let whisk = Whisk(credentials: credentials)
+
+    do {
+      try whisk.invokeAction(name: ActionName, package: nil, namespace: ActionNamespace,
+      parameters: [ "imageDocumentId" : documentId ], hasResult: true) { (reply, error) -> Void in
+
         self.deleteDocument(documentId, documentRev: documentRev)
-        
-        switch (response.result) {
-        case .Success:
-          let result = JSON(data: response.data!)
-          print("Analysis", result)
-          onSuccess(Result(impl: result["response"]["result"]))
-        case .Failure:
+      
+        if let error = error {
+          print("Error \(error)")
           onFailure()
+        } else {
+          let result = JSON(reply!)
+          print("Analysis", result)
+          onSuccess(Result(impl: result["result"]))
         }
+      }
+    } catch {
+      print("Error during invoke \(error)")
+      self.deleteDocument(documentId, documentRev: documentRev)
+      onFailure()
     }
   }
   
@@ -116,7 +124,7 @@ class ServerlessAPI {
   private func deleteDocument(documentId: String,  documentRev: String) {
     print("Removing temporary document...")
     
-    Alamofire.request(.DELETE, CLOUDANT_URL + "/" + CLOUDANT_DB_NAME + "/" + documentId + "?rev=" + documentRev, encoding: .JSON)
+    Alamofire.request(.DELETE, "\(CloudantUrl)/\(CloudantDbName)/\(documentId)?rev=\(documentRev)", encoding: .JSON)
       .responseJSON { (response) -> Void in
         switch (response.result) {
         case .Success:

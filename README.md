@@ -109,22 +109,18 @@ the current OpenWhisk namespace and your OpenWhisk authorization key.
 
 1. Open the file **vision/vision/model/ServerlessAPI.swift**
 
-1. Replace the value of the constant **CLOUDANT_URL** with the Cloudant credentials url.
+1. Set the value of the constant **CloudantUrl** to the Cloudant service credentials url.
 
-1. In the constant **OPENWHISK_ACTION_URL**, replace *YOUR_NAMESPACE* with the current namespace
+1. Set the value of the constant **ActionNamespace** to the name of the namespace
   where the action was created. You can retrieve the current namespace with:
 
   ```
   wsk property get --namespace
   ```
 
-1. Set the constant **OPENWHISK_AUTHORIZATION_KEY** to your OpenWhisk authorization key.
-  You can retrieve it from the OpenWhisk CLI configuration page or with:
+1. Set the value of the constants **WhiskAppKey** and **WhiskAppSecret**
+to your OpenWhisk credentials. You can retrieve them from the [iOS SDK configuration page](https://new-console.ng.bluemix.net/openwhisk/sdk/ios).
   
-  ```
-  wsk property get --auth
-  ```
-
 1. Save the file
 
 ## Running the application

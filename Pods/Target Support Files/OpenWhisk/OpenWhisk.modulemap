@@ -1,0 +1,6 @@
+framework module OpenWhisk {
+  umbrella header "OpenWhisk-umbrella.h"
+
+  export *
+  module * { export * }
+}
