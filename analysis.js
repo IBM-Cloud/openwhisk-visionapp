@@ -79,8 +79,8 @@ function main(args) {
     });
     return whisk.async();
   } else {
-    console.log("Don't know how to handle parameters", args);
-    whisk.error("Unknown parameters");
+    console.log("Parameter 'imageDocumentId' not found", args);
+    whisk.error("Parameter 'imageDocumentId' not found");
     return false;
   }
 }
