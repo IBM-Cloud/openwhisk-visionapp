@@ -14,7 +14,6 @@ people, buildings, objects in the picture. Share the results with your network.
 
  Built using IBM Bluemix, the application uses:
   * Watson Visual Recognition
-  * Alchemy Vision
   * OpenWhisk
   * Cloudant
 
@@ -25,21 +24,18 @@ people, buildings, objects in the picture. Share the results with your network.
     app -> cloudant
     /* analyzes the image */
     app -> openwhisk
-    {rank=same; app -> openwhisk [style=invis] }
+    {rank=same; app -> openwhisk -> watson [style=invis] }
     /* openwhisk reads from cloudant */
     cloudant -> openwhisk
     /* whisk passes image to visual recognition */
     openwhisk -> watson
-    /* whisk passes the image for image tagging, face detection */
-    openwhisk -> alchemy
     /* whisk provides result */
     openwhisk -> app
     /* services on top */
-    {rank=source; cloudant, watson, alchemy }
+    {rank=source; cloudant }
     /* styling */
     cloudant [shape=circle style=filled color="%234E96DB" fontcolor=white label="Cloudant"]
     watson [shape=circle style=filled color="%234E96DB" fontcolor=white label="Watson\\nVisual\\nRecognition"]
-    alchemy [shape=circle style=filled color="%234E96DB" fontcolor=white label="Alchemy\\nVision"]
     openwhisk [shape=circle style=filled color="%2324B643" fontcolor=white label="OpenWhisk"]
   }
 )
@@ -80,8 +76,6 @@ for image analysis in the cloud, without deploying or managing a single server.
 
 1. Create a Watson Visual Recognition service instance named **visualrecognition-for-vision**
 
-1. Create an Alchemy API service instance named **alchemyapi-for-vision**
-
 ***Note***: *if you have existing instances of these services, you don't need to create new instances.
 You can simply reuse the existing ones.*
 
@@ -97,7 +91,7 @@ You can simply reuse the existing ones.*
 the credentials obtained from the respective service dashboards in Bluemix:
 
   ```
-  wsk action create -p cloudantUrl [URL] -p cloudantDbName openwhisk-vision -p alchemyKey [123] -p watsonUsername [user] -p watsonPassword [pass] vision-analysis analysis.js
+  wsk action create -p cloudantUrl [URL] -p cloudantDbName openwhisk-vision -p watsonApiKey [123] vision-analysis analysis.js
   ```
 
 ### Configure XCode
@@ -145,7 +139,7 @@ to your OpenWhisk credentials. You can retrieve them from the [iOS SDK configura
   <img src="xdocs/ios-simulator-results.png" width="200">
   
   Results are made of the faces detected in the picture and of tags
-  returned by Watson and AlchemyAPI.
+  returned by Watson.
   The tags with the highest confidence score are pre-highlighted.
   The highlighted tags will be used when sharing the picture.
   You can tap tags to toggle their state.
@@ -175,8 +169,8 @@ to your OpenWhisk credentials. You can retrieve them from the [iOS SDK configura
 1. It retrieves the image data from the Cloudant document.
 The data has been attached by the iOS app as an attachment named "image.jpg".
 1. It saves the image file locally.
-1. If needed, it resizes the image so that it matches the requirements of the Watson and Alchemy API
-1. It calls Watson and AlchemyAPI in parallel
+1. If needed, it resizes the image so that it matches the requirements of the Watson service
+1. It calls Watson
 1. It returns the results of the analysis
 
 The action runs asynchronously.

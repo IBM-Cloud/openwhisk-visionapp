@@ -28,22 +28,11 @@ class Result: CustomStringConvertible {
   }
   
   /**
-   * - returns: the tags found by Watson for the image or an empty array if no tag found
-   */
-  func tags() -> [JSON] {
-    if (impl["visual_recognition"].isExists() && impl["visual_recognition"]["images"].isExists()) {
-      return impl["visual_recognition"]["images"][0]["labels"].array!
-    } else {
-      return []
-    }
-  }
-  
-  /**
    * - returns: the keywords found by AlchemyAPI for the image or an empty array if no keyword found
    */
   func keywords() -> [JSON] {
-    if (impl["image_keywords"].isExists() && impl["image_keywords"]["imageKeywords"].isExists()) {
-      return impl["image_keywords"]["imageKeywords"].array!
+    if (impl["image_keywords"].isExists()) {
+      return impl["image_keywords"].array!
     } else {
       return []
     }
@@ -53,8 +42,8 @@ class Result: CustomStringConvertible {
    * - returns: the faces found by AlchemyAPI for the image or an empty array if no face found
    */
   func faces() -> [JSON] {
-    if (impl["face_detection"].isExists() && impl["face_detection"]["imageFaces"].isExists()) {
-      return impl["face_detection"]["imageFaces"].array!
+    if (impl["face_detection"].isExists()) {
+      return impl["face_detection"].array!
     } else {
       return []
     }

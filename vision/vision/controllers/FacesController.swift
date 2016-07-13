@@ -71,7 +71,10 @@ class FacesController: UICollectionViewController {
       let face = faces![indexPath.row]
       
       // capture the face from the larger image
-      let fromRect = CGRect(x: face["positionX"].intValue, y: face["positionY"].intValue, width: face["width"].intValue,  height: face["height"].intValue)
+      let fromRect = CGRect(x: face["face_location"]["left"].intValue,
+                            y: face["face_location"]["top"].intValue,
+                            width: face["face_location"]["width"].intValue,
+                            height: face["face_location"]["height"].intValue)
       let imageRef = CGImageCreateWithImageInRect(image!.CGImage, fromRect)
       cell.faceView.image = UIImage(CGImage: imageRef!, scale: UIScreen.mainScreen().scale, orientation: image!.imageOrientation)
       
@@ -82,7 +85,7 @@ class FacesController: UICollectionViewController {
         cell.faceName.hidden = true
       }
       cell.faceAge.hidden = false
-      cell.faceAge.text = face["age"]["ageRange"].string!
+      cell.faceAge.text = face["age"]["min"].stringValue + "-" + face["age"]["max"].stringValue
     }
     
     return cell

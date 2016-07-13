@@ -130,7 +130,7 @@ class ResultController: UIViewController, TagListViewDelegate {
     
     // sort the faces from left to right
     let faces = result.faces().sort { (face1, face2) -> Bool in
-      return face1["positionX"].intValue < face2["positionX"].intValue
+      return face1["face_location"]["left"].intValue < face2["face_location"]["left"].intValue
     }
     // add a tag for each identified identity
     for face in faces {
@@ -152,19 +152,8 @@ class ResultController: UIViewController, TagListViewDelegate {
     
     // add tags for every keyword and tag, highlighting the one with higher score
     for keyword in result.keywords() {
-      // this is how alchemy tells us there is no tagView, don't show this
-      if (keyword["text"].string! == "NO_TAGS") {
-        continue
-      }
-      let tagView = imageTags.addTag(keyword["text"].string!)
+      let tagView = imageTags.addTag(keyword["class"].string!)
       if (keyword["score"].doubleValue > 0.90) {
-        tagView.selected = true
-      }
-    }
-    
-    for tag in result.tags() {
-      let tagView = imageTags.addTag(tag["label_name"].string!)
-      if (tag["label_score"].doubleValue > 0.70) {
         tagView.selected = true
       }
     }

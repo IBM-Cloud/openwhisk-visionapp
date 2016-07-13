@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="OL3-8k-nul">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="OL3-8k-nul">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -212,13 +212,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.55000000000000004" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Face" translatesAutoresizingMaskIntoConstraints="NO" id="zWW-Of-Kk5" userLabel="Blurred Background Image">
-                                <rect key="frame" x="0.0" y="64" width="438" height="150"/>
+                                <rect key="frame" x="0.0" y="64" width="438" height="300"/>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Face" translatesAutoresizingMaskIntoConstraints="NO" id="3gI-Iw-9iC">
-                                <rect key="frame" x="0.0" y="64" width="438" height="150"/>
+                                <rect key="frame" x="0.0" y="64" width="438" height="300"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="450" id="V9c-GQ-Jv6"/>
-                                    <constraint firstAttribute="height" constant="150" id="XJz-TP-Wx1"/>
+                                    <constraint firstAttribute="height" constant="300" id="XJz-TP-Wx1"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
@@ -233,7 +233,7 @@
                                 </variation>
                             </imageView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mrm-wO-m6s">
-                                <rect key="frame" x="12" y="222" width="414" height="96"/>
+                                <rect key="frame" x="12" y="372" width="414" height="96"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="96" id="pfo-hs-I05"/>
                                 </constraints>
@@ -264,7 +264,7 @@
                                 </connections>
                             </button>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" pagingEnabled="YES" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mO7-pb-LpQ" userLabel="Tag Container">
-                                <rect key="frame" x="12" y="326" width="414" height="598"/>
+                                <rect key="frame" x="12" y="476" width="414" height="448"/>
                                 <subviews>
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bp2-SI-pr0" customClass="TagListView" customModule="TagListView">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="32"/>
