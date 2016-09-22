@@ -84,7 +84,7 @@ class ResultController: UIViewController, TagListViewDelegate {
               progressHUD?.indicatorView = JGProgressHUDIndeterminateIndicatorView(hudStyle: .dark)
               progressHUD?.textLabel.text = "Analyzing"
             } else {
-              progressHUD?.textLabel.text = String(format: "Uploading... %d%%", fractionCompleted)
+              progressHUD?.textLabel.text = String(format: "Uploading... %d%%", Int(round(fractionCompleted * 100)))
             }
           }
         }
