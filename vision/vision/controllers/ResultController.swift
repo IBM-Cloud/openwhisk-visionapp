@@ -113,7 +113,7 @@ class ResultController: UIViewController, TagListViewDelegate {
     let count = UInt32(source.characters.count)
     for _ in 1...30 {
       let randomSize = max(5, Int(arc4random_uniform(count)))
-//TODO(fredL)      imageTags.addTag(source[source.startIndex...source.indstartIndex.advancedBy(randomSize)])
+      imageTags.addTag(source[source.startIndex...source.index(source.startIndex, offsetBy: randomSize)])
     }
   }
   
