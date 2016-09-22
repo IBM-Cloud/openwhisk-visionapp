@@ -45,12 +45,12 @@ class ServerlessAPI {
    * - onSuccess: called when results have been returned
    * - onFailure: called if there was an error processing the image
    */
-  func process(_ image: UIImage, onProgress: @escaping (_ phase: String, _ bytesWritten: Int64, _ totalBytesWritten: Int64, _ totalBytesExpectedToWrite: Int64) -> Void, onSuccess: @escaping (Result) -> Void, onFailure: @escaping () -> Void) {
+  func process(_ image: UIImage, onProgress: @escaping (_ phase: String, _ fractionCompleted: Double) -> Void, onSuccess: @escaping (Result) -> Void, onFailure: @escaping () -> Void) {
     createDocument(image, onProgress: onProgress, onSuccess: onSuccess, onFailure: onFailure)
   }
   
   /// Step 1 - Create a new document in Cloudant
-  fileprivate func createDocument(_ image: UIImage, onProgress: @escaping (_ phase: String, _ bytesWritten: Int64, _ totalBytesWritten: Int64, _ totalBytesExpectedToWrite: Int64) -> Void, onSuccess: @escaping (Result) -> Void, onFailure: @escaping () -> Void) {
+  fileprivate func createDocument(_ image: UIImage, onProgress: @escaping (_ phase: String, _ fractionCompleted: Double) -> Void, onSuccess: @escaping (Result) -> Void, onFailure: @escaping () -> Void) {
     print("Creating temporary image document...")
 
     Alamofire.request("\(CloudantUrl)/\(CloudantDbName)",
@@ -71,20 +71,16 @@ class ServerlessAPI {
   }
   
   /// Step 2 - Attach the image to the document
-  fileprivate func attachImage(_ documentId: String, documentRev: String, image: UIImage, onProgress: @escaping (_ phase: String, _ bytesWritten: Int64, _ totalBytesWritten: Int64, _ totalBytesExpectedToWrite: Int64) -> Void, onSuccess: @escaping (Result) -> Void, onFailure: @escaping () -> Void) {
+  fileprivate func attachImage(_ documentId: String, documentRev: String, image: UIImage, onProgress: @escaping (_ phase: String, _ fractionCompleted: Double) -> Void, onSuccess: @escaping (Result) -> Void, onFailure: @escaping () -> Void) {
     print("Attaching image to document", documentId, documentRev)
     
     let imageData = UIImageJPEGRepresentation(image, 0.3)
     Alamofire.upload(imageData!,
                      to: "\(CloudantUrl)/\(CloudantDbName)/\(documentId)/image.jpg?rev=\(documentRev)",
       method: .put)
-      //PENDING(fredL)
-//      .uploadProgress(queue: DispatchQueue.utility) { progress in
-  //      print("Upload Progress: \(progress.fractionCompleted)")
-        //.upprogress { (bytesWritten, totalBytesWritten, totalBytesExpectedToWrite) -> Void in
-        //onProgress(phase: "Uploading...", bytesWritten: bytesWritten, totalBytesWritten: totalBytesWritten, totalBytesExpectedToWrite: totalBytesExpectedToWrite)
-    //    onProgress(phase: "Uploading...", bytesWritten: 15, totalBytesWritten: 30, totalBytesExpectedToWrite: 30)
-     // }
+      .uploadProgress(closure: { (progress) in
+        onProgress("Uploading...", progress.fractionCompleted)
+      })
       .responseJSON { (response) -> Void in
         switch (response.result) {
         case .success:

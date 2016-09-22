@@ -75,18 +75,17 @@ class ResultController: UIViewController, TagListViewDelegate {
     progressHUD?.textLabel.text = "Preparing..."
     
     ServerlessAPI().process(imageToProcess,
-      onProgress: { (phase, bytesWritten, totalBytesWritten, totalBytesExpectedToWrite) -> Void in
+      onProgress: { (phase, fractionCompleted) -> Void in
         progressHUD?.textLabel.text = "Uploading..."
-        if (bytesWritten != -1) {
+        if (fractionCompleted >= 0) {
           DispatchQueue.main.async {
-            progressHUD?.setProgress(Float(totalBytesWritten) / Float(totalBytesExpectedToWrite), animated: true)
-            if (totalBytesWritten == totalBytesExpectedToWrite) {
+            progressHUD?.setProgress(Float(fractionCompleted), animated: true)
+            if (fractionCompleted == 1.0) {
               progressHUD?.indicatorView = JGProgressHUDIndeterminateIndicatorView(hudStyle: .dark)
               progressHUD?.textLabel.text = "Analyzing"
             } else {
-              progressHUD?.textLabel.text = String(format: "Uploading... %d%%", totalBytesWritten * 100 / totalBytesExpectedToWrite)
+              progressHUD?.textLabel.text = String(format: "Uploading... %d%%", fractionCompleted)
             }
-            print("Total bytes written: \(totalBytesWritten) / \(totalBytesExpectedToWrite)")
           }
         }
       },
