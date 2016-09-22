@@ -71,5 +71,7 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Vision will analyze the picture you select. The picture is not kept after analysis.</string>
 </dict>
 </plist>
