@@ -10,7 +10,7 @@ target 'vision' do
   pod 'OpenWhisk', :git => 'https://github.com/openwhisk/openwhisk-client-swift.git', :tag => '0.2.1'
   pod 'Alamofire', '4.0'
   pod 'AlamofireImage', '3.0'
-  pod 'SwiftyJSON', :git => 'https://github.com/appsailor/SwiftyJSON.git', :branch => 'swift3'
+  pod 'SwiftyJSON', '3.0'
   pod 'TagListView', :git => 'https://github.com/xhacker/TagListView', :branch => 'master'
   pod 'JGProgressHUD', '1.3.1'
   pod 'RDHCollectionViewGridLayout', '1.2.2'

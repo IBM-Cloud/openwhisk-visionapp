@@ -1,0 +1,32 @@
+{
+  "name": "OpenWhisk",
+  "version": "0.2.0",
+  "summary": "Mobile SDK to use OpenWhisk server-less environment",
+  "homepage": "http://www.ibm.com/mobilefirst/us/en/",
+  "license": {
+    "type": "Apache License, Version 2.0"
+  },
+  "authors": "IBM",
+  "description": "OpenWhisk is a cloud-first distributed event-based programming service. OpenWhisk provides a programming model to upload event handlers to a cloud service, and register the handlers to respond to various events.",
+  "platforms": {
+    "ios": "10.0",
+    "watchos": "3.0"
+  },
+  "source": {
+    "git": "https://github.com/openwhisk/openwhisk-client-swift.git",
+    "tag": "0.2.0"
+  },
+  "source_files": "OpenWhisk/*.{swift,h}",
+  "watchos": {
+    "exclude_files": "OpenWhisk/OpenWhiskButton.swift"
+  },
+  "frameworks": [
+    "Foundation",
+    "WatchConnectivity"
+  ],
+  "resource_bundles": {
+    "OpenWhiskResources": [
+      "OpenWhisk/OpenWhiskConfig.plist"
+    ]
+  }
+}
