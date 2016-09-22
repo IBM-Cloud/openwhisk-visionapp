@@ -43,8 +43,10 @@
 		<key>NSTemporaryExceptionAllowsInsecureHTTPLoads</key>
 		<true/>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>Vision will analyze the picture you take.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Vision will analyze the picture you select. The picture is not kept after analysis.</string>
+	<string>Vision will analyze the picture you select.</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
