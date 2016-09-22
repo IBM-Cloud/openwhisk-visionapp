@@ -103,12 +103,9 @@ class ServerlessAPI {
     let whisk = Whisk(credentials: credentials)
 
     do {
-      var params = Dictionary<String, String>()
-      params["imageDocumentId"] = documentId
-      
-      //PENDING(fredL) pass parameters
       try whisk.invokeAction(name: ActionName, package: nil, namespace: ActionNamespace,
-      parameters: nil, hasResult: true) { (reply, error) -> Void in
+                             parameters: ([ "imageDocumentId": documentId ] as AnyObject),
+                             hasResult: true) { (reply, error) -> Void in
 
         self.deleteDocument(documentId, documentRev: documentRev)
       
