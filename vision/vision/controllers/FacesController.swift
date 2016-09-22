@@ -22,26 +22,26 @@ private let reuseIdentifier = "FaceCell"
 /// Shows faces
 class FacesController: UICollectionViewController {
   
-  private var faces: [JSON]?
-  private var image: UIImage?
-  private var fakeFacesEnabled: Bool = false
+  fileprivate var faces: [JSON]?
+  fileprivate var image: UIImage?
+  fileprivate var fakeFacesEnabled: Bool = false
   
   override func viewDidLoad() {
     let rdhLayout = self.collectionViewLayout as? RDHCollectionViewGridLayout
     rdhLayout?.lineSpacing = 5;
     rdhLayout?.itemSpacing = 5;
     rdhLayout?.lineItemCount = 1;
-    rdhLayout?.scrollDirection = .Horizontal
+    rdhLayout?.scrollDirection = .horizontal
     rdhLayout?.lineSize = 96;
   }
   
   /// Shows random data while processing an image
-  func setFakeFaces(enabled : Bool) {
+  func setFakeFaces(_ enabled : Bool) {
     fakeFacesEnabled = enabled
     self.collectionView?.reloadData()
   }
   
-  func setFaces(faces: [JSON], image: UIImage) {
+  func setFaces(_ faces: [JSON], image: UIImage) {
     self.faces = faces
     self.image = image
     
@@ -49,11 +49,11 @@ class FacesController: UICollectionViewController {
     self.collectionView?.reloadData()
   }
   
-  override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+  override func numberOfSections(in collectionView: UICollectionView) -> Int {
     return 1
   }
   
-  override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+  override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     if (fakeFacesEnabled) {
       return 5
     } else {
@@ -61,11 +61,11 @@ class FacesController: UICollectionViewController {
     }
   }
   
-  override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-    let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! FaceCellRenderer
+  override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! FaceCellRenderer
     if (fakeFacesEnabled) {
-      cell.faceName.hidden = true
-      cell.faceAge.hidden = true
+      cell.faceName.isHidden = true
+      cell.faceAge.isHidden = true
     } else {
       // Configure the cell
       let face = faces![indexPath.row]
@@ -75,16 +75,16 @@ class FacesController: UICollectionViewController {
                             y: face["face_location"]["top"].intValue,
                             width: face["face_location"]["width"].intValue,
                             height: face["face_location"]["height"].intValue)
-      let imageRef = CGImageCreateWithImageInRect(image!.CGImage, fromRect)
-      cell.faceView.image = UIImage(CGImage: imageRef!, scale: UIScreen.mainScreen().scale, orientation: image!.imageOrientation)
+      let imageRef = (image!.cgImage)?.cropping(to: fromRect)
+      cell.faceView.image = UIImage(cgImage: imageRef!, scale: UIScreen.main.scale, orientation: image!.imageOrientation)
       
-      if (face["identity"].isExists()) {
-        cell.faceName.hidden = false
+      if (face["identity"].exists()) {
+        cell.faceName.isHidden = false
         cell.faceName.text = face["identity"]["name"].string!
       } else {
-        cell.faceName.hidden = true
+        cell.faceName.isHidden = true
       }
-      cell.faceAge.hidden = false
+      cell.faceAge.isHidden = false
       cell.faceAge.text = face["age"]["min"].stringValue + "-" + face["age"]["max"].stringValue
     }
     

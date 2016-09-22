@@ -33,7 +33,7 @@ extension String {
       }
       
       if (capitalizeNext) {
-        result += String(char).uppercaseString
+        result += String(char).uppercased()
         capitalizeNext = false
       } else {
         result += String(char)

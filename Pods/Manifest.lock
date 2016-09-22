@@ -1,29 +1,53 @@
 PODS:
-  - Alamofire (3.1.2)
-  - AlamofireImage (2.3.0):
-    - Alamofire (~> 3.1)
+  - Alamofire (4.0.0)
+  - AlamofireImage (3.0.0):
+    - Alamofire (~> 4.0)
   - JGProgressHUD (1.3.1)
-  - OpenWhisk (0.1.1)
+  - OpenWhisk (0.2.0)
   - RDHCollectionViewGridLayout (1.2.2)
-  - SwiftyJSON (2.3.1)
-  - TagListView (0.4.2)
+  - SwiftyJSON (3.0.0)
+  - TagListView (1.0.0)
 
 DEPENDENCIES:
-  - Alamofire (= 3.1.2)
-  - AlamofireImage (= 2.3.0)
+  - Alamofire (= 4.0)
+  - AlamofireImage (= 3.0)
   - JGProgressHUD (= 1.3.1)
-  - OpenWhisk
+  - OpenWhisk (from `https://github.com/openwhisk/openwhisk-client-swift.git`, tag `0.2.1`)
   - RDHCollectionViewGridLayout (= 1.2.2)
-  - SwiftyJSON (= 2.3.1)
-  - TagListView (= 0.4.2)
+  - SwiftyJSON (from `https://github.com/appsailor/SwiftyJSON.git`, branch `swift3`)
+  - TagListView (from `https://github.com/xhacker/TagListView`, branch `master`)
+
+EXTERNAL SOURCES:
+  OpenWhisk:
+    :git: https://github.com/openwhisk/openwhisk-client-swift.git
+    :tag: 0.2.1
+  SwiftyJSON:
+    :branch: swift3
+    :git: https://github.com/appsailor/SwiftyJSON.git
+  TagListView:
+    :branch: master
+    :git: https://github.com/xhacker/TagListView
+
+CHECKOUT OPTIONS:
+  OpenWhisk:
+    :git: https://github.com/openwhisk/openwhisk-client-swift.git
+    :tag: 0.2.1
+  SwiftyJSON:
+    :commit: de73429b38b8994f614fb27c5ec094bb8a4833f2
+    :git: https://github.com/appsailor/SwiftyJSON.git
+  TagListView:
+    :commit: 876785a171d4402bb5defc6361d3d02fe4fcdf26
+    :git: https://github.com/xhacker/TagListView
 
 SPEC CHECKSUMS:
-  Alamofire: 7c16ca65f3c7e681fd925fd7f2dec7747ff96855
-  AlamofireImage: 4013fb5b99b10117bf2554a67b9bd2231d476b45
+  Alamofire: fef59f00388f267e52d9b432aa5d93dc97190f14
+  AlamofireImage: 6594aa1139a67dcd36cde6da79ea4e5b318e60fb
   JGProgressHUD: 153053a21d81208cb5f659691996bcefce6a9885
-  OpenWhisk: bdabfafe4637f543d0b6a53447cdbd549e7376b9
+  OpenWhisk: 7c94c01eba086cc316ee3c5dc1bd6c8f5c94f974
   RDHCollectionViewGridLayout: 9a0a574d47335101a417acee7ab9cb030373641b
-  SwiftyJSON: 592b53bee5ef3dd9b3bebc6b9cb7ee35426ae8c3
-  TagListView: 38700330380d7c874f8f9c381ce651d822f11ebf
+  SwiftyJSON: f57b2b44bc166617372d1c70773591fe9f0f5fd4
+  TagListView: 6bf4bded034c4c90b1e90d8cd3d8e1d852dba0a8
 
-COCOAPODS: 0.39.0
+PODFILE CHECKSUM: 74049cb68842c8f51cf8c250990e9d94f91eec5c
+
+COCOAPODS: 1.0.1

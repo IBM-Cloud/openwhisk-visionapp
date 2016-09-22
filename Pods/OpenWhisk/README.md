@@ -1,262 +1,238 @@
-OpenWhisk
-==========
+# Swift Client SDK for OpenWhisk
+This is a Swift-based client SDK for OpenWhisk. You can use it to connect to the [IBM Bluemix OpenWhisk service](http://www.ibm.com/cloud-computing/bluemix/openwhisk/), or you own installation of [OpenWhisk](https://github.com/openwhisk/openwhisk).  It partially implements the OpenWhisk [REST API](https://github.com/openwhisk/openwhisk/blob/master/docs/reference.md#rest-api) and allows you to invoke actions and fire triggers. The client SDK is compatible with Swift 2.x and runs on iOS 9, WatchOS 2, and Darwin.  Since this code uses classes like NSURLSession, Linux support is linked to the current status of [Foundation on Linux](https://github.com/apple/swift-corelibs-foundation). We have a Swift 3 branch that updates the code to the latest syntax, warning: it is untested. 
 
-OpenWhisk is a cloud-first distributed event-based programming service. It provides a programming model to upload event handlers to a cloud service, and register the handlers to respond to various events. Learn more at https://developer.ibm.com/openwhisk or try it on [IBM Bluemix OpenWhisk](https://ibm.biz/openwhisk).
+## Installation
+You can install the SDK using the source code in this repo, as a Cocoapod for iOS and WatchOS 2 apps, Carthage, and as a package using the Swift Package Manager for Darwin CLI apps.
 
+### Source Code Installation
+To build the source code:
+- Clone this repo.
+- Open the `OpenWhisk.xcodeproj` file in XCode 7.2 or 7.3.
+- Build the OpenWhisk target for an iOS app or the OpenWhiskWatch target for a WatchOS 2 app.
+- Locate the binary framework file (usually in `debug` or `release` directories at `~/Library/Developer/Xcode/DerivedData/$projectName-*`) and add it to the "Embedded Binaries" list in the General settings of your apps' target.
 
-* [Getting Started](#getting-started)
-* [Configure OpenWhisk](#clone-and-configure-openwhisk)
-* [Build and deploy with Vagrant](#build-and-deploy-with-vagrant)
-* [Add users](#add-users)
-* [Setup CLI](#setup-cli)
-* [Run sample action](#run-sample-action)
-* [Learn concepts and commands](#learn-concepts-and-commands)
-* [License](#license)
-* [Issues](#issues)
+### CocoaPods Installation
+The [official CocoaPods website](http://cocoapods.org) has detailed instructions on how to install and use CocoaPods.
 
+The following lines in a Podfile will install the SDK for an iOS app with a watch OS 2 extension: 
 
+```
+install! 'cocoapods', :deterministic_uuids => false
+use_frameworks!
 
-### Getting started
+target 'MyApp' do
+     pod 'OpenWhisk', :git => 'https://github.com/openwhisk/openwhisk-client-swift.git', :tag => '0.1.7'
+end
 
-The following instructions were tested on Mac OSX and may work on Ubuntu. You cannot build and run OpenWhisk on Windows yet.
+target 'MyApp WatchKit Extension' do 
+     pod 'OpenWhisk', :git => 'https://github.com/openwhisk/openwhisk-client-swift.git', :tag => '0.1.7'
+end
+```
+You may get the warning 'target overrides the `EMBEDDED_CONTENT_CONTAINS_SWIFT` ' when you have a watch target.  You can eliminate this warning by changing this setting in "Build Settings" to the value '$(inherited)'.
 
-Before you can use OpenWhisk, you must configure a backing datastore. Currently, the system uses [Cloudant](https://cloudant.com) as a cloud-based database service. We are working on offering alternative backing stores.
+### Carthage Installation
 
-There are two ways to get a Cloudant account and configure OpenWhisk to use it. You only need to establish an account once, either through IBM Bluemix or with Cloudant directly. Once you have created a Cloudant account, make note of the account `username` and `password`.
+Visit the [official Carthage site on Github](https://github.com/Carthage/Carthage) for detailed instructions on installing and using Carthage.
 
-#### Create a Cloudant account via IBM Bluemix
-Sign up for an account via [IBM Bluemix](https://bluemix.net). Bluemix offers trial accounts and its signup process is straightforward so it is not described here in detail.
+Here is an example Cartfile for iOS installation using Carthage:  
+
+```
+github "openwhisk/openwhisk-client-swift.git" ~> 0.1.7 # Or latest version
+
+```
+
+### Swift Package Manager
+Use the Swift Package Manager to install into a Darwin CLI app.  Below is an example Package.swift manifest file you can use:
+
+```
+import PackageDescription
+
+let package = Package(
+  name:  "PackageTest",
+  dependencies: [
+    .Package(url:  "https://github.com/openwhisk/openwhisk-client-swift.git", versions: Version(0,0,0)..<Version(1,0,0)),
+  ]
+)
+```
+
+## Usage
+
+To get up and running quickly, create a WhiskCredentials object with your OpenWhisk API credentials and create a Whisk instance from that.
+
+In Swift 2.x, you create a credentials object as:
+
+```
+let credentialsConfiguration = WhiskCredentials(accessKey: "myKey", accessToken: "myToken")
+
+let whisk = Whisk(credentials: credentialsConfiguration!)
+```
+
+You can retrieve the key and token with the following CLI command:
+
+```
+wsk property get --auth
+```
+
+```
+whisk auth              kkkkkkkk-kkkk-kkkk-kkkk-kkkkkkkkkkkk:tttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt
+```
+
+The strings before and after the colon are your key and token, respectively.
+
+### Invoke an OpenWhisk Action
+Call "invokeAction" with the action name to invoke a remote action. You can specify the namespace the action belongs to, or just leave it blank to accept the default namespace.  Use a dictionary to pass parameters to the action as required.
+
+```swift
+// In this example, we are invoking an action to print a message to the OpenWhisk Console
+var params = Dictionary<String, String>()
+params["payload"] = "Hi from mobile"
+
+do {
+    try whisk.invokeAction(name: "helloConsole", package: "mypackage", namespace: "mynamespace", parameters: params, hasResult: false, callback: {(reply, error) -> Void in 
+        if let error = error {
+            //do something
+            print("Error invoking action \(error.localizedDescription)")
+        } else {
+            print("Action invoked!")
+        }
+        
+    })
+} catch {
+    print("Error \(error)")
+}
+```
+
+In the above example, we are invoking the "helloConsole" action using the default namespace. 
+
+### Fire an OpenWhisk Trigger
+To fire a remote OpenWhisk trigger, call the "fireTrigger" method.  Pass in parameters as required using a dictionary.
+
+```swift
+// In this example we are firing a trigger when our location has changed by a certain amount
+
+var locationParams = Dictionary<String, String>()
+locationParams["payload"] = "{\"lat\":41.27093, \"lon\":-73.77763}"
+
+do {
+    try whisk.fireTrigger(name: "locationChanged", package: "mypackage", namespace: "mynamespace", parameters: locationParams, callback: {(reply, error) -> Void in
+        
+        if let error = error {
+            print("Error firing trigger \(error.localizedDescription)")
+        } else {
+            print("Trigger fired!")
+        }
+    })
+} catch {
+    print("Error \(error)")
+}
+```
+In the above example, we are firing a trigger "locationChanged".
+
+### Actions that return a result
+If the action returns a result, set hasResult to true in the invokeAction call. The result of the action is returned in the reply dictionary, for example:
+
+```swift
+do {
+    try whisk.invokeAction(name: "actionWithResult", package: "mypackage", namespace: "mynamespace", parameters: params, hasResult: true, callback: {(reply, error) -> Void in
+        
+        if let error = error {
+            //do something
+            print("Error invoking action \(error.localizedDescription)")
+            
+        } else {
+            var result = reply["result"]
+            print("Got result \(result)")
+        }
+        
+        
+    })
+} catch {
+    print("Error \(error)")
+}
+```
+By default, the SDK will only return the activationId and any result produced by the invoked action.  To get metadata of the entire response object, which includes the HTTP response status code and the REST API URL the SDK tried to call, use this setting:
+
+```
+whisk.verboseReplies = true
+```
+
+The REST API URL called will be in the actionUrl/triggerUrl fields of the response.
+
+## SDK configuration
+
+You can configure the SDK to work with different installations of OpenWhisk using the baseURL parameter. For instance:
+
+```swift
+whisk.baseURL = "http://localhost:8080"
+```
+will use an OpenWhisk running at localhost:8080.  If you do not specify the baseUrl, the Mobile SDK will use the instance running at https://openwhisk.ng.bluemix.net
+
+You can pass in a custom NSURLSession in case you require special network handling.  For example, you may have your own OpenWhisk installation that uses self-signed certificates:
+
+```swift
+
+// create a network delegate that trusts everything
+class NetworkUtilsDelegate: NSObject, NSURLSessionDelegate {
+    func URLSession(session: NSURLSession, didReceiveChallenge challenge: NSURLAuthenticationChallenge, completionHandler: (NSURLSessionAuthChallengeDisposition, NSURLCredential?) -> Void) {
+        
+        completionHandler(NSURLSessionAuthChallengeDisposition.UseCredential, NSURLCredential(forTrust: challenge.protectionSpace.serverTrust!))
+    }
+}
+
+// create an NSURLSession that uses the trusting delegate
+let session = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration(), delegate: NetworkUtilsDelegate(), delegateQueue:NSOperationQueue.mainQueue())
+
+// set the SDK to use this urlSession instead of the default shared one
+whisk.urlSession = session
+```
+#### Support for Qualified Names
+All actions and triggers have a fully qualified name which is made up of a namespace, a package, and an action/trigger name. The SDK can accept these as parameters when invoking an action or firing a trigger. The SDK also provides a function that accepts a fully qualified name that looks like "/mynamespace/mypackage/nameOfActionOrTrigger". The qualified name string supports unnamed default values for namespaces and packages that all OpenWhisk users have, so the following parsing rules apply:
+
+1. qName = "foo" will result in namespace = default, package = default, action/trigger = "foo"
+2. qName = "mypackage/foo" will result in namespace = default, package = mypackage, action/trigger = "foo"
+3. qName = "/mynamespace/foo" will result in namespace = mynamespace, package = default, action/trigger = "foo"
+4. qName = "/mynamespace/mypackage/foo will result in namespace = mynamespace, package = mypackage, action/trigger = "foo" 
+
+All other combinations will throw a WhiskError.QualifiedName error. When using qualified names, you must wrap the call in a do/try/catch block.
+
+#### SDK Button
+For convenience, the iOS version of the SDK includes a WhiskButton, which extends the UIButton to allow it to invoke OpenWhisk actions.  To use this:
+
+```swift
+var whiskButton = WhiskButton(frame: CGRectMake(0,0,20,20))
+
+whiskButton.setupWhiskAction("helloConsole", package: "mypackage", namespace: "_", credentials: credentialsConfiguration!, hasResult: false, parameters: nil, urlSession: nil)
+
+let myParams = ["name":"value"]
+
+// Call this when you detect a press event, e.g. in an IBAction, to invoke the action 
+whiskButton.invokeAction(parameters: myParams, callback: { reply, error in
+    if let error = error {
+        print("Oh no, error: \(error)")
+    } else {
+        print("Success: \(reply)")
+    }
+})
+
+// or alternatively you can setup a "self contained" button that listens for press events on itself and invokes an action
+
+var whiskButtonSelfContained = WhiskButton(frame: CGRectMake(0,0,20,20))
+whiskButtonSelfContained.listenForPressEvents = true
+do { 
+
+   // use qualified name API which requires do/try/catch
+   try whiskButtonSelfContained.setupWhiskAction("mypackage/helloConsole", credentials: credentialsConfiguration!, hasResult: false, parameters: nil, urlSession: nil)
+   whiskButtonSelfContained.actionButtonCallback = { reply, error in
+
+       if let error = error {
+           print("Oh no, error: \(error)")
+       } else {
+           print("Success: \(reply)")
+       }
+   }
+} catch {
+   print("Error setting up button \(error)")
+}
+
+```
 
-Once you have established a Bluemix account, the most convenient way to create a Cloudant instance is via the `cf` command-line tool.
-See [here](https://www.ng.bluemix.net/docs/starters/install_cli.html) for instructions on how to download and configure `cf` to
-work with your Bluemix account.
-
-Once you've set up `cf`, issue the following commands to create a Cloudant database to use for OpenWhisk:
-
-  ```
-  # Create a Cloudant service
-  cf create-service cloudantNoSQLDB Shared cloudant-for-openwhisk
-  
-  # Create Cloudant service keys
-  cf create-service-key cloudant-for-openwhisk openwhisk
-
-  # Get Cloudant service keys
-  cf service-key cloudant-for-openwhisk openwhisk
-  ```
-
-#### Create a Cloudant account directly with Cloudant
-
-As an alternative to IBM Bluemix, you may sign up for an account on [Cloudant](https://cloudant.com) directly. Cloudant is free to try and offers a metered pricing where the first $50 of usage is free each month. The signup process is straightforward so it is not described here in detail.
-
-### Clone and configure OpenWhisk
-
-Clone the OpenWhisk repository into your workspace.
-
-  ```
-  git clone https://github.com/openwhisk/openwhisk.git
-  cd openwhisk
-  ```
-
-Before you build and deploy the system, you must configure it to use your Cloudant account.
-
-1. Copy the file named `template-cloudant-local.env` to `cloudant-local.env`.
-
-  ```
-  cp template-cloudant-local.env cloudant-local.env
-  ```
-
-2. Open the file `cloudant-local.env` and fill in your Cloudant account credentials.
-
-3. Next, you must initialize the datastore. This creates a database to hold user authorization keys, including a guest user key (used for running unit tests) and a system key for installing standard OpenWhisk assets (e.g., samples).
-
-  ```
-  tools/cloudant/createImmortalDBs.sh <cloudant username> <cloudant password>
-  ```
-
-The script will ask you to confirm this database initialization.
-
-  ```
-  About to drop and recreate database 'subjects' in this cloudant account:
-  <cloudant username>
-  This will wipe the previous database if it exists and this is not reversible.
-  Respond with 'DROPIT' to continue and anything else to abort.
-  Are you sure? 
-  ```
-
-Confirm initialization by typing `DROPIT`. The output should resemble the following.
-
-  ```
-  subjects
-  curl --user ... -X DELETE https://<cloudant username>.cloudant.com/subjects
-  {"error":"not_found","reason":"Database does not exist."}
-  curl --user ... -X PUT https://<cloudant username>.cloudant.com/subjects
-  {"ok":true}
-  {"ok":true,"id":"_design/subjects","rev":"1-..."}
-  Create immortal key for guest ...
-  {"ok":true,"id":"guest","rev":"1-..."}
-  Create immortal key for whisk.system ...
-  {"ok":true,"id":"whisk.system","rev":"1-..."}
-  ```
-
-### Build and deploy with Vagrant
-
-Install Vagrant from [vagrantup.com](http://vagrantup.com). Then, from a terminal:
-
-  ```
-  cd tools/vagrant
-  vagrant up
-  vagrant reload
-  ```
-
-Login to the virtual machine either using the VirtualBox terminal or with `vagrant ssh`. The login username is `vagrant` and the password is `vagrant`.
-
-**Tip:** The Vagrant file is configured to allocate a virtual machine with a recommended 4GB of RAM. 
-
-**Tip:** If the Vagrant machine provisioning fails, you can rerun it with `vagrant provision`. Alternatively, rerun the following from _inside_ the Vagrant virtual machine.
-
-  ```
-  (cd openwhisk/tools/ubuntu-setup && source all.sh)
-  ```
-
-**Tip:** Optionally, if you want to use Ubuntu desktop `(cd openwhisk/tools/ubuntu-setup && source ubuntu-desktop.sh)`
-
-#### Build OpenWhisk in Vagrant virtual machine
-
-Your virtual machine is now ready to build and run OpenWhisk. _Login to the virtual machine to complete the next steps._
-
-  ```
-  # all commands are relative to the OpenWhisk directory in your Vagrant machine
-  cd openwhisk
-  
-  # build and deploy OpenWhisk in the virtual machine
-  ant clean build deploy
-  
-  # optionally run the unit tests against your local deployment
-  ant run
-  ```
-
-**Tip:** If during the steps above it appears some required software (e.g. `ant`) is missing, run the machine provisioning again and capture the output to see if some installation step failed.
-
-**Tip:** The first build will take some time as it fetches many dependencies from the Internet. The duration of this step can range from 25 minutes to an hour or more depending on your network speed. Once deployed, several Docker containers will be running in your virtual machine.
-
-**Tip:** Since the first build takes some time, it is not uncommon for some step to fail if there's a network hiccup or other interruption of some kind. If this happens you may see a `Build FAILED` message that suggests a Docker operation timed out. You can simply try `ant build` again and it will mostly pick up where it left off. This should only be an issue the very first time you build whisk -- subsequent builds do far less network activity thanks to Docker caching.
-
-### Add users
-
-An OpenWhisk user, also known as a *subject*, requires a valid authorization key. 
-OpenWhisk is preconfigured with a guest key located in `config/keys/auth.guest`.
-
-You may use this key if you like, or use `wskadmin` to create a new key.
-
-  ```
-  wskadmin user create <subject>
-  ```
-
-This command will create a new *subject* with the authorization key shown on the console once you run `wskadmin`. This key is required when making API calls to OpenWhisk, or when using the command line interface (CLI).
-
-The same tool may be used to delete a subject.
-
-  ```
-  wskadmin user delete <subject>
-  ```
-
-### Setup CLI
-
-When using the CLI `wsk`, it is convenient to store the authorization key in a property file so that one does not have to supply the key on every command.
-
-OpenWhisk is preconfigured with a guest key. You can use this key if you like, or use
-`wskadmin` to create a new key.
-
-1. Configuring the CLI to use the guest authorization key:
-  ```
-  wsk property set --auth $(cat config/keys/auth.guest)
-  ```
-
-2. **Or** to create a new user and set the authorization key:
-  ```
-  wsk property set --auth $(wskadmin user create <subject>)
-  ```
-
-**Tip:** The `wsk` CLI offers tab completion on commands and parameters. Hit tab to complete a command or to see available commands and arguments for a given context.
-
-**Tip:** You can use tab completion outside the virtual machine as well since the `wsk` CLI is available on the host as well. Install [argcomplete](https://github.com/kislyuk/argcomplete) with `sudo pip install argcomplete` and add this to your Bash profile
-`eval "$(register-python-argcomplete wsk)"`.
-
-### Run sample action
-
-You are now ready to run your first action. Try the "echo" action. It returns its input as the result of the action.
-
-  ```
-  wsk action invoke /whisk.system/samples/echo -p message hello --blocking --result
-  ```
-
-should produce the following output:
-  ```
-  {
-     "message": "hello"
-  }
-  ```
-
-
-### Using CLI from outside Vagrant machine
-
-The OpenWhisk deployment within the Vagrant virtual machine is accessible from the host machine. By default, the virtual machine
-IP address is `192.168.33.13` (see Vagrant file). From your _host_, configure `wsk` to use your Vagrant based OpenWhisk API deployment and run the "echo" action again to test.
-
-  ```
-  wsk property set --apihost 192.168.33.13 --auth <auth key>
-
-  wsk action invoke /whisk.system/samples/echo -p message hello --blocking --result
-  {
-    "message": "hello"
-  }
-  ```
-
-### SSL certificate
-
-OpenWhisk includes a _self-signed_ SSL certificate and the `wsk` CLI allows untrusted certificates.
-
-  ```
-  ls config/keys/openwhisk-self-*
-  config/keys/openwhisk-self-cert.pem
-  config/keys/openwhisk-self-key.pem
-  ```
-
-These are configured in `config/localEnv.sh`
-
-  ```
-  #
-  # SSL certificate used by router
-  #
-  WHISK_SSL_CERTIFICATE=config/keys/openwhisk-self-cert.pem
-  WHISK_SSL_KEY=config/keys/openwhisk-self-key.pem
-  WHISK_SSL_CHALLENGE=openwhisk
-  ```
-
-Do not use these certificates in production: add your own and modify
-the configuration to use trusted certificates instead
-
-
-### Learn concepts and commands
-
-Browse the [documentation](docs/) to learn more. Here are some topics you may be
-interested in:
-
-- [System overview](docs/about.md)
-- [Create and invoke actions](./docs/actions.md)
-- [Create triggers and rules](./docs/triggers_rules.md)
-- [Use and create packages](./docs/packages.md)
-- [Browse and use the catalog](./docs/catalog.md)
-
-
-### License
-
-Copyright 2015-2016 IBM Corporation
-
-Licensed under the [Apache License, Version 2.0 (the "License")](http://www.apache.org/licenses/LICENSE-2.0.html).
-
-Unless required by applicable law or agreed to in writing, software distributed under the license is distributed on an "as is" basis, without warranties or conditions of any kind, either express or implied. See the license for the specific language governing permissions and limitations under the license.
-
-### Issues
-
-Report bugs, ask questions and request features [here on GitHub](../../issues).

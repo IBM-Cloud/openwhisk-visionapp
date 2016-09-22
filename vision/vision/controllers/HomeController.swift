@@ -27,53 +27,53 @@ class HomeController: UIViewController, UIImagePickerControllerDelegate, UINavig
   override func viewDidLoad() {
     descriptionText.textContainerInset = UIEdgeInsetsMake(15, 15, 15, 15)
     
-    let versionNumber = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleShortVersionString") as! String
-    let buildNumber = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleVersion") as! String
+    let versionNumber = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
+    let buildNumber = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as! String
     versionNumberLabel.text = "v\(versionNumber) (\(buildNumber))"
   }
 
   /// Hides the navigation bar when the view is about to show
-  override func viewWillAppear(animated: Bool) {
+  override func viewWillAppear(_ animated: Bool) {
     navigationController?.setNavigationBarHidden(true, animated: animated)
   }
   
   /// Takes a photo with the Camera
-  @IBAction func takePhoto(sender: UIButton) {
+  @IBAction func takePhoto(_ sender: UIButton) {
     imagePicker =  UIImagePickerController()
     imagePicker.allowsEditing = false
     imagePicker.delegate = self
-    imagePicker.sourceType = .Camera
-    presentViewController(imagePicker, animated: true, completion: nil)
+    imagePicker.sourceType = .camera
+    present(imagePicker, animated: true, completion: nil)
   }
   
   /// Selects a picture from the Photo Library
-  @IBAction func selectPicture(sender: AnyObject) {
+  @IBAction func selectPicture(_ sender: AnyObject) {
     imagePicker =  UIImagePickerController()
     imagePicker.allowsEditing = false
     imagePicker.delegate = self
-    imagePicker.sourceType = .PhotoLibrary
-    presentViewController(imagePicker, animated: true, completion: nil)
+    imagePicker.sourceType = .photoLibrary
+    present(imagePicker, animated: true, completion: nil)
   }
   
   /// Called when an image has been selected, from the Camera or the Photo Library
-  func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+  func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
     print("Retrieving image...")
-    imagePicker.dismissViewControllerAnimated(true, completion: nil)
+    imagePicker.dismiss(animated: true, completion: nil)
     imageToProcess = info[UIImagePickerControllerOriginalImage] as? UIImage
     
     // if this was a picture from the Camera, save it to the Camera Roll
-    if(picker.sourceType == UIImagePickerControllerSourceType.Camera) {
+    if(picker.sourceType == UIImagePickerControllerSourceType.camera) {
       UIImageWriteToSavedPhotosAlbum(imageToProcess, nil, nil, nil)
     }
     
     // move to the ResultController
-    performSegueWithIdentifier("Result", sender: nil)
+    performSegue(withIdentifier: "Result", sender: nil)
   }
 
   /// Passes the selected image to the ResultController
-  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     if (segue.identifier == "Result") {
-      let controller = segue.destinationViewController as! ResultController
+      let controller = segue.destination as! ResultController
       controller.setImage(imageToProcess);
     }
   }

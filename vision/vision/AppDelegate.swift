@@ -20,28 +20,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
   var window: UIWindow?
 
-  func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+  func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
     print("Loading default settings...")
-    let defaultSettings = NSBundle.mainBundle().URLForResource("Default Settings", withExtension: "plist")
-    NSUserDefaults.standardUserDefaults().registerDefaults(NSDictionary(contentsOfURL: defaultSettings!) as! [String : AnyObject])
-    NSUserDefaults.standardUserDefaults().synchronize()
+    let defaultSettings = Bundle.main.url(forResource: "Default Settings", withExtension: "plist")
+    UserDefaults.standard.register(defaults: NSDictionary(contentsOf: defaultSettings!) as! [String : AnyObject])
+    UserDefaults.standard.synchronize()
 
     return true
   }
 
-  func applicationWillResignActive(application: UIApplication) {
+  func applicationWillResignActive(_ application: UIApplication) {
   }
 
-  func applicationDidEnterBackground(application: UIApplication) {
+  func applicationDidEnterBackground(_ application: UIApplication) {
   }
 
-  func applicationWillEnterForeground(application: UIApplication) {
+  func applicationWillEnterForeground(_ application: UIApplication) {
   }
 
-  func applicationDidBecomeActive(application: UIApplication) {
+  func applicationDidBecomeActive(_ application: UIApplication) {
   }
 
-  func applicationWillTerminate(application: UIApplication) {
+  func applicationWillTerminate(_ application: UIApplication) {
   }
 
 }

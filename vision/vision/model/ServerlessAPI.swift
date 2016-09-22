@@ -45,53 +45,61 @@ class ServerlessAPI {
    * - onSuccess: called when results have been returned
    * - onFailure: called if there was an error processing the image
    */
-  func process(image: UIImage, onProgress: (phase: String, bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) -> Void, onSuccess: (Result) -> Void, onFailure: () -> Void) {
+  func process(_ image: UIImage, onProgress: @escaping (_ phase: String, _ bytesWritten: Int64, _ totalBytesWritten: Int64, _ totalBytesExpectedToWrite: Int64) -> Void, onSuccess: @escaping (Result) -> Void, onFailure: @escaping () -> Void) {
     createDocument(image, onProgress: onProgress, onSuccess: onSuccess, onFailure: onFailure)
   }
   
   /// Step 1 - Create a new document in Cloudant
-  private func createDocument(image: UIImage, onProgress: (phase: String, bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) -> Void, onSuccess: (Result) -> Void, onFailure: () -> Void) {
+  fileprivate func createDocument(_ image: UIImage, onProgress: @escaping (_ phase: String, _ bytesWritten: Int64, _ totalBytesWritten: Int64, _ totalBytesExpectedToWrite: Int64) -> Void, onSuccess: @escaping (Result) -> Void, onFailure: @escaping () -> Void) {
     print("Creating temporary image document...")
-    Alamofire.request(.POST, "\(CloudantUrl)/\(CloudantDbName)", parameters: [ "type": "temp-image" ], encoding: .JSON)
+
+    Alamofire.request("\(CloudantUrl)/\(CloudantDbName)",
+                      method: .post,
+                      parameters: [ "type": "temp-image" ],
+                      encoding: JSONEncoding.default)
       .responseJSON { (response) -> Void in
         switch (response.result) {
-        case .Success:
+        case .success:
           let result = JSON(data: response.data!)
           print("Document created", result)
           self.attachImage(result["id"].string!, documentRev: result["rev"].string!,
             image: image, onProgress: onProgress, onSuccess: onSuccess, onFailure: onFailure)
-        case .Failure:
+        case .failure:
           onFailure()
         }
     }
   }
   
   /// Step 2 - Attach the image to the document
-  private func attachImage(documentId: String, documentRev: String, image: UIImage, onProgress: (phase: String, bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) -> Void, onSuccess: (Result) -> Void, onFailure: () -> Void) {
+  fileprivate func attachImage(_ documentId: String, documentRev: String, image: UIImage, onProgress: @escaping (_ phase: String, _ bytesWritten: Int64, _ totalBytesWritten: Int64, _ totalBytesExpectedToWrite: Int64) -> Void, onSuccess: @escaping (Result) -> Void, onFailure: @escaping () -> Void) {
     print("Attaching image to document", documentId, documentRev)
     
     let imageData = UIImageJPEGRepresentation(image, 0.3)
-    Alamofire.upload(
-      .PUT,
-      "\(CloudantUrl)/\(CloudantDbName)/\(documentId)/image.jpg?rev=\(documentRev)",
-      data: imageData!)
-      .progress { (bytesWritten, totalBytesWritten, totalBytesExpectedToWrite) -> Void in
-        onProgress(phase: "Uploading...", bytesWritten: bytesWritten, totalBytesWritten: totalBytesWritten, totalBytesExpectedToWrite: totalBytesExpectedToWrite)
-      }
+    Alamofire.upload(imageData!,
+                     to: "\(CloudantUrl)/\(CloudantDbName)/\(documentId)/image.jpg?rev=\(documentRev)",
+      method: .put)
+      //PENDING(fredL)
+//      .uploadProgress(queue: DispatchQueue.utility) { progress in
+  //      print("Upload Progress: \(progress.fractionCompleted)")
+        //.upprogress { (bytesWritten, totalBytesWritten, totalBytesExpectedToWrite) -> Void in
+        //onProgress(phase: "Uploading...", bytesWritten: bytesWritten, totalBytesWritten: totalBytesWritten, totalBytesExpectedToWrite: totalBytesExpectedToWrite)
+    //    onProgress(phase: "Uploading...", bytesWritten: 15, totalBytesWritten: 30, totalBytesExpectedToWrite: 30)
+     // }
       .responseJSON { (response) -> Void in
         switch (response.result) {
-        case .Success:
+        case .success:
           let result = JSON(data: response.data!)
           print("Image uploaded", result)
           self.analyze(result["id"].string!, documentRev: result["rev"].string!, onSuccess: onSuccess, onFailure: onFailure)
-        case .Failure:
+        case .failure:
           onFailure()
         }
     }
+    
   }
   
   /// Step 3 - Analyze the image with OpenWhisk
-  private func analyze(documentId: String,  documentRev: String, onSuccess: (Result) -> Void, onFailure: () -> Void) {
+  fileprivate func analyze(_ documentId: String,  documentRev: String, onSuccess: @escaping (Result) -> Void, onFailure: @escaping () -> Void) {
     print("Triggering analysis of image...")
     
     
@@ -99,8 +107,12 @@ class ServerlessAPI {
     let whisk = Whisk(credentials: credentials)
 
     do {
+      var params = Dictionary<String, String>()
+      params["imageDocumentId"] = documentId
+      
+      //PENDING(fredL) pass parameters
       try whisk.invokeAction(name: ActionName, package: nil, namespace: ActionNamespace,
-      parameters: [ "imageDocumentId" : documentId ], hasResult: true) { (reply, error) -> Void in
+      parameters: nil, hasResult: true) { (reply, error) -> Void in
 
         self.deleteDocument(documentId, documentRev: documentRev)
       
@@ -121,15 +133,17 @@ class ServerlessAPI {
   }
   
   /// Step 4 - Delete the temporary image from Cloudant
-  private func deleteDocument(documentId: String,  documentRev: String) {
+  fileprivate func deleteDocument(_ documentId: String,  documentRev: String) {
     print("Removing temporary document...")
     
-    Alamofire.request(.DELETE, "\(CloudantUrl)/\(CloudantDbName)/\(documentId)?rev=\(documentRev)", encoding: .JSON)
+    Alamofire.request(
+      "\(CloudantUrl)/\(CloudantDbName)/\(documentId)?rev=\(documentRev)",
+      method: .delete, encoding: JSONEncoding.default)
       .responseJSON { (response) -> Void in
         switch (response.result) {
-        case .Success:
+        case .success:
           print("Document deleted");
-        case .Failure:
+        case .failure:
           print("Failed to delete document");
         }
     }

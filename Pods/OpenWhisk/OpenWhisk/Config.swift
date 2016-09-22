@@ -21,11 +21,11 @@ import Foundation
 */
 public class Config {
     
-    public class func getHostAndPath(type type:String) -> String? {
-        
+
+     class func getHostAndPath(type:String) -> String? {
         var url: String? = nil
         if let dict = getConfigDictionary() {
-            url = dict.valueForKey(type) as? String
+            url = dict.value(forKey: type) as? String
         } else {
             print("Configuration file missing, cannot config network call")
         }
@@ -38,38 +38,38 @@ public class Config {
         
         // Attempt 1, load the bundle from a local reference to this classes bundle
         // I'am assuming the WhiskResources bundle is in the framework's root bundle
-        let frameworkBundle = NSBundle(forClass: Config.self)
+        let frameworkBundle = Bundle(for: Config.self)
         
-        if let bundlePath = frameworkBundle.pathForResource("OpenWhiskResources", ofType: "bundle") {
-            if let bundle = NSBundle(path: bundlePath) {
-                let configFile = bundle.pathForResource("OpenWhiskConfig", ofType: "plist")
+        if let bundlePath = frameworkBundle.path(forResource: "OpenWhiskResources", ofType: "bundle") {
+            if let bundle = Bundle(path: bundlePath) {
+                let configFile = bundle.path(forResource: "OpenWhiskConfig", ofType: "plist")
                 
                 if let configFile = configFile {
                     let config = NSDictionary(contentsOfFile: configFile) as? [String: AnyObject]
                     if let config = config {
                         let urlConfig = config["Locations"] as? [String: String]
-                        return urlConfig
+                        return urlConfig as NSDictionary?
                     }
                 }
             }
-        } else if let bundlePath = frameworkBundle.pathForResource("OpenWhiskWatchResources", ofType: "bundle") {
-            if let bundle = NSBundle(path: bundlePath) {
-                let configFile = bundle.pathForResource("OpenWhiskConfig", ofType: "plist")
+        } else if let bundlePath = frameworkBundle.path(forResource: "OpenWhiskWatchResources", ofType: "bundle") {
+            if let bundle = Bundle(path: bundlePath) {
+                let configFile = bundle.path(forResource: "OpenWhiskConfig", ofType: "plist")
                 
                 if let configFile = configFile {
                     let config = NSDictionary(contentsOfFile: configFile) as? [String: AnyObject]
                     if let config = config {
                         let urlConfig = config["Locations"] as? [String: String]
-                        return urlConfig
+                        return urlConfig as NSDictionary?
                     }
                 }
             }
         } else {
-            if let configFile = frameworkBundle.pathForResource("OpenWhiskConfig", ofType: "plist") {
+            if let configFile = frameworkBundle.path(forResource: "OpenWhiskConfig", ofType: "plist") {
                 let config = NSDictionary(contentsOfFile: configFile) as? [String: AnyObject]
                 if let config = config {
                     let urlConfig = config["Locations"] as? [String: String]
-                    return urlConfig
+                    return urlConfig as NSDictionary?
                 }
             } else {
                 print("Can't find configuration information")
@@ -88,7 +88,7 @@ public class Config {
     */
     public class func getAuthToken() -> (apiKey: String?, apiSecret: String?)? {
         
-        let dict = NSProcessInfo.processInfo().environment
+        let dict = ProcessInfo.processInfo.environment
         let key = dict["TESTAPIKEY"]
         let secret = dict["TESTAPISECRET"]
         

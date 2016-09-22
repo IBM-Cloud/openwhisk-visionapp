@@ -1,18 +1,25 @@
-source 'https://github.com/openwhisk/openwhisk-podspecs.git'
 source 'https://github.com/CocoaPods/Specs.git'
 
-platform :ios, '9.0'
+platform :ios, '10.0'
 use_frameworks!
 
 workspace 'vision.xcworkspace'
 xcodeproj 'vision/vision.xcodeproj'
 
 target 'vision' do
-  pod 'OpenWhisk', '0.1.1'
-  pod 'Alamofire', '3.1.2'
-  pod 'AlamofireImage', '2.3.0'
-  pod 'SwiftyJSON', '2.3.1'
-  pod 'TagListView', '0.4.2'
+  pod 'OpenWhisk', :git => 'https://github.com/openwhisk/openwhisk-client-swift.git', :tag => '0.2.1'
+  pod 'Alamofire', '4.0'
+  pod 'AlamofireImage', '3.0'
+  pod 'SwiftyJSON', :git => 'https://github.com/appsailor/SwiftyJSON.git', :branch => 'swift3'
+  pod 'TagListView', :git => 'https://github.com/xhacker/TagListView', :branch => 'master'
   pod 'JGProgressHUD', '1.3.1'
   pod 'RDHCollectionViewGridLayout', '1.2.2'
+end
+
+post_install do |installer|
+    installer.pods_project.targets.each do |target|
+        target.build_configurations.each do |config|
+            config.build_settings['SWIFT_VERSION'] = '3.0'
+        end
+    end
 end
