@@ -11,7 +11,7 @@ target 'vision' do
   pod 'Alamofire', '4.0'
   pod 'AlamofireImage', '3.0'
   pod 'SwiftyJSON', '3.0'
-  pod 'TagListView', :git => 'https://github.com/xhacker/TagListView', :branch => 'master'
+  pod 'TagListView', '1.0.0'
   pod 'JGProgressHUD', '1.3.1'
   pod 'RDHCollectionViewGridLayout', '1.2.2'
 end

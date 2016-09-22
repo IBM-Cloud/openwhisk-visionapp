@@ -15,23 +15,17 @@ DEPENDENCIES:
   - OpenWhisk (from `https://github.com/openwhisk/openwhisk-client-swift.git`, tag `0.2.1`)
   - RDHCollectionViewGridLayout (= 1.2.2)
   - SwiftyJSON (= 3.0)
-  - TagListView (from `https://github.com/xhacker/TagListView`, branch `master`)
+  - TagListView (= 1.0.0)
 
 EXTERNAL SOURCES:
   OpenWhisk:
     :git: https://github.com/openwhisk/openwhisk-client-swift.git
     :tag: 0.2.1
-  TagListView:
-    :branch: master
-    :git: https://github.com/xhacker/TagListView
 
 CHECKOUT OPTIONS:
   OpenWhisk:
     :git: https://github.com/openwhisk/openwhisk-client-swift.git
     :tag: 0.2.1
-  TagListView:
-    :commit: 876785a171d4402bb5defc6361d3d02fe4fcdf26
-    :git: https://github.com/xhacker/TagListView
 
 SPEC CHECKSUMS:
   Alamofire: fef59f00388f267e52d9b432aa5d93dc97190f14
@@ -42,6 +36,6 @@ SPEC CHECKSUMS:
   SwiftyJSON: f57b2b44bc166617372d1c70773591fe9f0f5fd4
   TagListView: 6bf4bded034c4c90b1e90d8cd3d8e1d852dba0a8
 
-PODFILE CHECKSUM: c945c6c298c5dcc45221704a78bc426b88358f4d
+PODFILE CHECKSUM: e6d1fa82cd3e73df45d91875da4562ba8c43eb19
 
 COCOAPODS: 1.0.1
