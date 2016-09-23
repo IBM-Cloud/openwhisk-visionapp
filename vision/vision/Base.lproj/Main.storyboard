@@ -157,13 +157,12 @@
                                 <exclude reference="uo4-Uh-oTU"/>
                                 <exclude reference="vOk-T7-Fc6"/>
                                 <exclude reference="yHD-KY-RN2"/>
+                                <exclude reference="PgX-mh-1qU"/>
+                                <exclude reference="rd9-ox-1gU"/>
                                 <exclude reference="9gi-hY-PT5"/>
                                 <exclude reference="XX9-Rd-NHS"/>
                                 <exclude reference="Xk5-6A-U9A"/>
                                 <exclude reference="ldk-MM-Fsa"/>
-                                <exclude reference="gEp-5b-Svk"/>
-                                <exclude reference="PgX-mh-1qU"/>
-                                <exclude reference="rd9-ox-1gU"/>
                                 <exclude reference="2vA-tz-IUM"/>
                                 <exclude reference="Dtr-gT-kH6"/>
                                 <exclude reference="IP5-e9-VAA"/>
@@ -171,6 +170,7 @@
                                 <exclude reference="TQs-Qa-Ga3"/>
                                 <exclude reference="cFU-vo-IUB"/>
                                 <exclude reference="eVd-uG-rkw"/>
+                                <exclude reference="gEp-5b-Svk"/>
                                 <exclude reference="DNz-4C-Z7n"/>
                                 <exclude reference="FfT-AK-KZM"/>
                                 <exclude reference="SEd-Ey-pzH"/>
@@ -208,7 +208,7 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Face" translatesAutoresizingMaskIntoConstraints="NO" id="3gI-Iw-9iC">
                                 <constraints>
                                     <constraint firstAttribute="height" constant="450" id="V9c-GQ-Jv6"/>
-                                    <constraint firstAttribute="height" constant="300" id="XJz-TP-Wx1"/>
+                                    <constraint firstAttribute="height" constant="150" id="XJz-TP-Wx1"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
@@ -348,7 +348,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iy2-lE-6YG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1757" y="407"/>
+            <point key="canvasLocation" x="1853.5999999999999" y="404.34782608695656"/>
         </scene>
         <!--Faces Controller-->
         <scene sceneID="znV-FY-haQ">
@@ -442,7 +442,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6mC-6t-vUQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="481" y="407"/>
+            <point key="canvasLocation" x="199" y="406"/>
         </scene>
     </scenes>
     <resources>
