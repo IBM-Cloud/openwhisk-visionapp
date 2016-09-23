@@ -52,7 +52,7 @@ for image analysis in the cloud, without deploying or managing a single server.
 
 * IBM Bluemix account. [Sign up][bluemix_signup_url] for Bluemix, or use an existing account.
 * IBM Bluemix OpenWhisk early access. [Sign up for Bluemix OpenWhisk](https://new-console.ng.bluemix.net/openwhisk).
-* XCode 8.0
+* XCode 8.0, iOS 10, Swift 3
 
 ## Preparing the environment
 
