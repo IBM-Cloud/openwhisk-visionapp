@@ -1,1 +1,0 @@
-../../../OpenWhisk/mobile/iOS/sdk/OpenWhisk/OpenWhisk.h

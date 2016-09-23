@@ -179,13 +179,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B681E2B91C591F5500E17B71 /* Build configuration list for PBXNativeTarget "vision" */;
 			buildPhases = (
-				DF6053E3EAA86A7E6A0FA4B8 /* Check Pods Manifest.lock */,
+				DF6053E3EAA86A7E6A0FA4B8 /* [CP] Check Pods Manifest.lock */,
 				B681E2A31C591F5500E17B71 /* Sources */,
 				B681E2A41C591F5500E17B71 /* Frameworks */,
 				B681E2A51C591F5500E17B71 /* Resources */,
 				B6BF7B191C61EE640019F532 /* CopyFiles */,
-				DDD90C254276F2E8A5990160 /* Embed Pods Frameworks */,
-				5025358ABB32AEDEEB860019 /* Copy Pods Resources */,
+				DDD90C254276F2E8A5990160 /* [CP] Embed Pods Frameworks */,
+				5025358ABB32AEDEEB860019 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -203,11 +203,12 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0720;
-				LastUpgradeCheck = 0720;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "IBM Bluemix Developer Advocate Team";
 				TargetAttributes = {
 					B681E2A61C591F5500E17B71 = {
 						CreatedOnToolsVersion = 7.2;
+						LastSwiftMigration = 0800;
 					};
 				};
 			};
@@ -245,14 +246,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		5025358ABB32AEDEEB860019 /* Copy Pods Resources */ = {
+		5025358ABB32AEDEEB860019 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -260,14 +261,14 @@
 			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-vision/Pods-vision-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		DDD90C254276F2E8A5990160 /* Embed Pods Frameworks */ = {
+		DDD90C254276F2E8A5990160 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -275,14 +276,14 @@
 			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-vision/Pods-vision-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		DF6053E3EAA86A7E6A0FA4B8 /* Check Pods Manifest.lock */ = {
+		DF6053E3EAA86A7E6A0FA4B8 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -345,8 +346,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -368,7 +371,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -390,8 +393,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -407,9 +412,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -419,17 +425,21 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = ED05FADD5D6E91744787753A /* Pods-vision.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = NO;
+				DEVELOPMENT_TEAM = "";
 				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = NO;
 				INFOPLIST_FILE = vision/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = net.mybluemix.Vision;
+				PRODUCT_BUNDLE_IDENTIFIER = net.mybluemix.VisionApp;
 				PRODUCT_NAME = Vision;
 				PROVISIONING_PROFILE = "";
 				SWIFT_INCLUDE_PATHS = "";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -437,17 +447,21 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 584D21969F8C6C082B566D43 /* Pods-vision.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = NO;
+				DEVELOPMENT_TEAM = "";
 				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = NO;
 				INFOPLIST_FILE = vision/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = net.mybluemix.Vision;
+				PRODUCT_BUNDLE_IDENTIFIER = net.mybluemix.VisionApp;
 				PRODUCT_NAME = Vision;
 				PROVISIONING_PROFILE = "";
 				SWIFT_INCLUDE_PATHS = "";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

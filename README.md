@@ -52,7 +52,7 @@ for image analysis in the cloud, without deploying or managing a single server.
 
 * IBM Bluemix account. [Sign up][bluemix_signup_url] for Bluemix, or use an existing account.
 * IBM Bluemix OpenWhisk early access. [Sign up for Bluemix OpenWhisk](https://new-console.ng.bluemix.net/openwhisk).
-* XCode 7.2
+* XCode 8.0, iOS 10, Swift 3
 
 ## Preparing the environment
 
@@ -114,7 +114,7 @@ the current OpenWhisk namespace and your OpenWhisk authorization key.
 
 1. Set the value of the constants **WhiskAppKey** and **WhiskAppSecret**
 to your OpenWhisk credentials. You can retrieve them from the [iOS SDK configuration page](https://new-console.ng.bluemix.net/openwhisk/sdk/ios).
-  
+
 1. Save the file
 
 ## Running the application
@@ -137,17 +137,17 @@ to your OpenWhisk credentials. You can retrieve them from the [iOS SDK configura
 1. The picture is sent for analysis and results are returned:
 
   <img src="xdocs/ios-simulator-results.png" width="200">
-  
+
   Results are made of the faces detected in the picture and of tags
   returned by Watson.
   The tags with the highest confidence score are pre-highlighted.
   The highlighted tags will be used when sharing the picture.
   You can tap tags to toggle their state.
-  
+
 1. Press the Share button. This opens the standard iOS sharing screen.
 
   <img src="xdocs/ios-simulator-share.png" width="200">
-  
+
   *Note:
   to configure a Twitter account, go to the Settings app on the simulator.
   Under Twitter, add your account (no need for the Twitter app to be installed).
@@ -156,7 +156,7 @@ to your OpenWhisk credentials. You can retrieve them from the [iOS SDK configura
 1. Pick Twitter as example.
 
   <img src="xdocs/ios-simulator-twitter.png" width="200">
-  
+
   The picture and the highlighted tags are included in the message.
   The message can be edited before posting.
 

@@ -31,7 +31,7 @@ class Result: CustomStringConvertible {
    * - returns: the keywords found by AlchemyAPI for the image or an empty array if no keyword found
    */
   func keywords() -> [JSON] {
-    if (impl["image_keywords"].isExists()) {
+    if (impl["image_keywords"].exists()) {
       return impl["image_keywords"].array!
     } else {
       return []
@@ -42,7 +42,7 @@ class Result: CustomStringConvertible {
    * - returns: the faces found by AlchemyAPI for the image or an empty array if no face found
    */
   func faces() -> [JSON] {
-    if (impl["face_detection"].isExists()) {
+    if (impl["face_detection"].exists()) {
       return impl["face_detection"].array!
     } else {
       return []

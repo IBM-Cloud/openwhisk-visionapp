@@ -38,68 +38,67 @@ class ResultController: UIViewController, TagListViewDelegate {
 
     imageTags.delegate = self
     
-    if (UIDevice.currentDevice().userInterfaceIdiom == UIUserInterfaceIdiom.Pad) {
-      imageTags.textFont = UIFont.systemFontOfSize(40)
+    if (UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad) {
+      imageTags.textFont = UIFont.systemFont(ofSize: 40)
     } else {
-      imageTags.textFont = UIFont.systemFontOfSize(20)
+      imageTags.textFont = UIFont.systemFont(ofSize: 20)
     }
-    imageTags.alignment = .Center
+    imageTags.alignment = .center
   }
   
-  func setImage(imageToProcess: UIImage) {
+  func setImage(_ imageToProcess: UIImage) {
     self.imageToProcess = imageToProcess
   }
   
-  override func viewWillAppear(animated: Bool) {
+  override func viewWillAppear(_ animated: Bool) {
     navigationController?.setNavigationBarHidden(false, animated: animated)
     imageView.image = imageToProcess
     backgroundImageView.image = BlurFilter().filter(imageToProcess)
     enableGhostContent();
   }
   
-  override func viewDidAppear(animated: Bool) {
+  override func viewDidAppear(_ animated: Bool) {
     processImage()
   }
   
-  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     if (segue.identifier == "Faces") {
-      facesController = segue.destinationViewController as! FacesController
+      facesController = segue.destination as! FacesController
     }
   }
   
   /// Processes the image
-  private func processImage() {
-    let progressHUD = JGProgressHUD(style: .Dark)
-    progressHUD.indicatorView = JGProgressHUDPieIndicatorView(HUDStyle: .Dark)
-    progressHUD.showInView(view, animated: true)
-    progressHUD.textLabel.text = "Preparing..."
+  fileprivate func processImage() {
+    let progressHUD = JGProgressHUD(style: .dark)
+    progressHUD?.indicatorView = JGProgressHUDPieIndicatorView(hudStyle: .dark)
+    progressHUD?.show(in: view, animated: true)
+    progressHUD?.textLabel.text = "Preparing..."
     
     ServerlessAPI().process(imageToProcess,
-      onProgress: { (phase, bytesWritten, totalBytesWritten, totalBytesExpectedToWrite) -> Void in
-        progressHUD.textLabel.text = "Uploading..."
-        if (bytesWritten != -1) {
-          dispatch_async(dispatch_get_main_queue()) {
-            progressHUD.setProgress(Float(totalBytesWritten) / Float(totalBytesExpectedToWrite), animated: true)
-            if (totalBytesWritten == totalBytesExpectedToWrite) {
-              progressHUD.indicatorView = JGProgressHUDIndeterminateIndicatorView(HUDStyle: .Dark)
-              progressHUD.textLabel.text = "Analyzing"
+      onProgress: { (phase, fractionCompleted) -> Void in
+        progressHUD?.textLabel.text = "Uploading..."
+        if (fractionCompleted >= 0) {
+          DispatchQueue.main.async {
+            progressHUD?.setProgress(Float(fractionCompleted), animated: true)
+            if (fractionCompleted == 1.0) {
+              progressHUD?.indicatorView = JGProgressHUDIndeterminateIndicatorView(hudStyle: .dark)
+              progressHUD?.textLabel.text = "Analyzing"
             } else {
-              progressHUD.textLabel.text = String(format: "Uploading... %d%%", totalBytesWritten * 100 / totalBytesExpectedToWrite)
+              progressHUD?.textLabel.text = String(format: "Uploading... %d%%", Int(round(fractionCompleted * 100)))
             }
-            print("Total bytes written: \(totalBytesWritten) / \(totalBytesExpectedToWrite)")
           }
         }
       },
       onSuccess: { (result) -> Void in
-        dispatch_async(dispatch_get_main_queue()) {
-          progressHUD.dismissAnimated(true)
+        DispatchQueue.main.async {
+          progressHUD?.dismiss(animated: true)
           self.disableGhostContent()
           self.updateWithResult(result)
         }
       },
       onFailure: { () -> Void in
-        dispatch_async(dispatch_get_main_queue()) {
-          progressHUD.dismissAnimated(true)
+        DispatchQueue.main.async {
+          progressHUD?.dismiss(animated: true)
           self.disableGhostContent()
         }
       }
@@ -107,35 +106,35 @@ class ResultController: UIViewController, TagListViewDelegate {
   }
   
   /// Fills the UI with random data while the image is being processed
-  private func enableGhostContent() {
+  fileprivate func enableGhostContent() {
     facesController.setFakeFaces(true)
     imageTags.removeAllTags()
     let source = " . . . . . . . . . "
     let count = UInt32(source.characters.count)
     for _ in 1...30 {
       let randomSize = max(5, Int(arc4random_uniform(count)))
-      imageTags.addTag(source[source.startIndex...source.startIndex.advancedBy(randomSize)])
+      imageTags.addTag(source[source.startIndex...source.index(source.startIndex, offsetBy: randomSize)])
     }
   }
   
   /// Removes the random data before showing the actual result
-  private func disableGhostContent() {
+  fileprivate func disableGhostContent() {
     facesController.setFakeFaces(false)
     imageTags.removeAllTags()
   }
   
   /// Updates the user interface with the analysis results
-  private func updateWithResult(result: Result) {
+  fileprivate func updateWithResult(_ result: Result) {
     print("Refreshing UI with results...", result);
     
     // sort the faces from left to right
-    let faces = result.faces().sort { (face1, face2) -> Bool in
+    let faces = result.faces().sorted { (face1, face2) -> Bool in
       return face1["face_location"]["left"].intValue < face2["face_location"]["left"].intValue
     }
     // add a tag for each identified identity
     for face in faces {
-      if (face["identity"].isExists()) {
-        imageTags.addTag(face["identity"]["name"].string!).selected = true
+      if (face["identity"].exists()) {
+        imageTags.addTag(face["identity"]["name"].string!).isSelected = true
       }
     }
     
@@ -143,10 +142,10 @@ class ResultController: UIViewController, TagListViewDelegate {
 
     // hide the faces view if no face found
     if (faces.count > 0) {
-      facesContainer.hidden = false
+      facesContainer.isHidden = false
       facesContainerHeight.constant = originalFacesContainerHeight
     } else {
-      facesContainer.hidden = true
+      facesContainer.isHidden = true
       facesContainerHeight.constant = 0
     }
     
@@ -154,16 +153,16 @@ class ResultController: UIViewController, TagListViewDelegate {
     for keyword in result.keywords() {
       let tagView = imageTags.addTag(keyword["class"].string!)
       if (keyword["score"].doubleValue > 0.90) {
-        tagView.selected = true
+        tagView.isSelected = true
       }
     }
   }
   
-  func tagPressed(title: String, tagView: TagView, sender: TagListView) {
-    tagView.selected = !tagView.selected
+  func tagPressed(_ title: String, tagView: TagView, sender: TagListView) {
+    tagView.isSelected = !tagView.isSelected
   }
   
-  @IBAction func shareResult(sender: AnyObject) {
+  @IBAction func shareResult(_ sender: AnyObject) {
     var sharingItems = [AnyObject]()
     
     // add the image to the list of shared items
@@ -174,13 +173,13 @@ class ResultController: UIViewController, TagListViewDelegate {
     for tag in imageTags.selectedTags() {
       text += " #" + tag.currentTitle!.camelCasedString
     }
-    text = text + " " + NSUserDefaults.standardUserDefaults().stringForKey("share_suffix")!
-    sharingItems.append(text)
+    text = text + " " + UserDefaults.standard.string(forKey: "share_suffix")!
+    sharingItems.append(text as AnyObject)
     
     // show the iOS share screen
     let activityViewController = UIActivityViewController(activityItems: sharingItems, applicationActivities: nil)
     activityViewController.popoverPresentationController?.sourceView = sender as? UIButton
-    self.presentViewController(activityViewController, animated: true, completion: nil)
+    self.present(activityViewController, animated: true, completion: nil)
   }
   
 }

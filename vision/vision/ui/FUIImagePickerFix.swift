@@ -18,11 +18,11 @@ import UIKit
 /// Workaround for https://forums.developer.apple.com/thread/21932 to prevent 3D touch crashes when selecting a picture from the photo library.
 extension UICollectionViewController: UIViewControllerPreviewingDelegate {
 
-  public func previewingContext(previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+  public func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
     return nil;
   }
   
-  public func previewingContext(previewingContext: UIViewControllerPreviewing, commitViewController viewControllerToCommit: UIViewController) {
+  public func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
   }
 
 }

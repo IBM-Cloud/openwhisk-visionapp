@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-#import <UIKit/UIKit.h>
+@import Foundation;
 
 //! Project version number for OpenWhisk.
 FOUNDATION_EXPORT double OpenWhiskVersionNumber;
