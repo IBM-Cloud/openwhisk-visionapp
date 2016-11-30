@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		01CFE72603C22865312BCD6DD54D4DA8 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F31801C94457126801263E6E022274AF /* QuartzCore.framework */; };
 		024C9468242EFC09B5B71076D0BDABB5 /* ImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD61006344C6A349AF6726D9CCCF363 /* ImageDownloader.swift */; };
-		0781C0E9971BCD97C52F1A053EB97DDA /* JGProgressHUDFadeZoomAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D558711E446D5AF878D6E1BF48093D1 /* JGProgressHUDFadeZoomAnimation.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		09435816567501D89698B5F88A4E44B9 /* JGProgressHUDSuccessIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = BA458E0F1249BBCA97E6119D1AF63FDE /* JGProgressHUDSuccessIndicatorView.m */; };
 		0AF03BEB17B21617DAE72E1DB2AA6239 /* JGProgressHUD-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = B221FD4C9ECF8D3DB0929150624D5478 /* JGProgressHUD-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0B8551E9AC828974E86D9D03A7F8BC92 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CD0FA7EE743F01B3A6385702606A408 /* Alamofire.framework */; };
 		0C1B4E9FFB8B81E8833A3BAD537B1990 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9D9838CDFDF97F126B120CFBCB336B9 /* Notifications.swift */; };
@@ -17,45 +17,43 @@
 		112F63A968D2B1E3103BE1D0957DF597 /* JGProgressHUD Resources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E3F890CACDBA64004DB569CACF1959E0 /* JGProgressHUD Resources.bundle */; };
 		12118C354EFA36292F82A8D0CFCE45B2 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = E884D9F6BC4F419F5EF00FE23589056A /* Request.swift */; };
 		240B5C8F950AB54985D55596598205E6 /* Pods-vision-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = A49F36C010E0EEFD74584492934D27EC /* Pods-vision-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		251773F056BA41A68BDD9C62633EB279 /* JGProgressHUDRingIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C3B9D67B066E1445469902346CCF8A /* JGProgressHUDRingIndicatorView.m */; };
 		2A5ADD4CF18074D3AE33086B87FD9C00 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2864D86499B7C519DD5F39EAAD2770B6 /* Foundation.framework */; };
-		2DF9B5866AD77B64B15536DA4E04296D /* JGProgressHUDRingIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C3B9D67B066E1445469902346CCF8A /* JGProgressHUDRingIndicatorView.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		3210552EE14BF09797714D00F55D075B /* JGProgressHUD-Defines.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F0A9E3901A0A28F4CCCBEE55A8E1A37 /* JGProgressHUD-Defines.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		34C6A0ED382D7CC2B64F3C1B756DD793 /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48392BE70F04F66037490E3176768BD5 /* TagView.swift */; };
-		38082DAABEC61FA8F13A507963AE3205 /* JGProgressHUDIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 164420246D03B95CDFF5FB7FA3A27D2D /* JGProgressHUDIndicatorView.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		3982B850C43B41BA6D25F440F0412E9B /* Timeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9640046B5F27BD7F11E6708A10DE73 /* Timeline.swift */; };
 		3EBA98EEF1A580EC8BF2CE2E7903ECC4 /* JGProgressHUDRingIndicatorView.h in Headers */ = {isa = PBXBuildFile; fileRef = EB98356B3713DE16A7AF63B6FBCCD24D /* JGProgressHUDRingIndicatorView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3F8DA96BD1C0AAAE60289463229B15BC /* WatchConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F4DC5E68C5A4D6B3CCBAF5243ABE08B /* WatchConnectivity.framework */; };
 		426B84F0766E07E31B5D85AB57AD53BB /* SwiftyJSON-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F1D9A51C08207AC4C5F7C357A8DCD46 /* SwiftyJSON-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4498876B063819A3A0B087CC6C57DD18 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2864D86499B7C519DD5F39EAAD2770B6 /* Foundation.framework */; };
-		46196B61BABC54BA463AD72064D898D6 /* JGProgressHUDIndeterminateIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = B85C9A94F714AB11993B6BD2163A9ADE /* JGProgressHUDIndeterminateIndicatorView.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		476E30A7475DCC20F88BE4982A8E4924 /* JGProgressHUDErrorIndicatorView.h in Headers */ = {isa = PBXBuildFile; fileRef = 944C18101C33A0BEA2370DDDE2F50F65 /* JGProgressHUDErrorIndicatorView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4811CD4B640FA8C4786D65DA9D9B2DE6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2864D86499B7C519DD5F39EAAD2770B6 /* Foundation.framework */; };
 		50EA2AD3CB6A4AA84E69D4B8745B7205 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF3DFEA7FA625EAFF7DA670238A20D27 /* UIKit.framework */; };
 		5111AEF65DC9CB2B58E24EE707CC3697 /* UIImageView+AlamofireImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E336715A7A08336CC4EB1CEDBF41906 /* UIImageView+AlamofireImage.swift */; };
 		523A2A7D845D2BF63244348680538285 /* ImageFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF1F2D74A73BC028EFFE7707CE4F8D8 /* ImageFilter.swift */; };
-		5597298A201CB095F76D36B6A8C8811E /* JGProgressHUDFadeAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = A870990C941CFB957BCA159A405BF568 /* JGProgressHUDFadeAnimation.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		569B251677908E2FE12D150D03458750 /* UIImage+AlamofireImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523F59437FC78F72D290FB29B4AD8570 /* UIImage+AlamofireImage.swift */; };
-		56A54DEE7567ACC08FC79D6C4E554BFB /* JGProgressHUDImageIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BDF91AAE3EF08AD7FC7453A80665467 /* JGProgressHUDImageIndicatorView.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		57A50068F7DB98DB3CEAD5E7EB11C9F0 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA550DAC49DF3AA9C2BA32BB37C780EB /* CoreGraphics.framework */; };
 		62143065F94E53F437DCE5D7A998D66D /* AFError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 142BF8A32DA0674348FE7FA46A67734A /* AFError.swift */; };
 		64146903ED33909D2DE6D77550BBCA32 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34406347F3F3D059C9EA4D95D08D7806 /* ImageCache.swift */; };
+		66D284FD4C72EEC21B6B365B4B5C1475 /* JGProgressHUDFadeAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = A870990C941CFB957BCA159A405BF568 /* JGProgressHUDFadeAnimation.m */; };
 		6A36B94C62E0B7C0B5E05886AFEBD5CF /* RDHCollectionViewGridLayout-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = AEF412E973A97023A5007691C97765B8 /* RDHCollectionViewGridLayout-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6B9066BB4A28B3ABCC03B308A77AF756 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF3DFEA7FA625EAFF7DA670238A20D27 /* UIKit.framework */; };
-		7019D2587E0AA201AEF8C09319D1FF55 /* JGProgressHUDAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C617EA0CE9353A67456B7A9B533E91 /* JGProgressHUDAnimation.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		7221C4F7DC22078989CB07EEE18A86B1 /* TagListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FEDCD33D7B915232437AA3F58A4C5C1 /* TagListView.swift */; };
 		7298B73F98597A3C93AB872EB6255D4C /* UIButton+AlamofireImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4437F44C436C27F3483E11EB433620C2 /* UIButton+AlamofireImage.swift */; };
 		72E250C04949942C751C0B61CA3CFFD1 /* JGProgressHUDIndicatorView.h in Headers */ = {isa = PBXBuildFile; fileRef = 90EC6A1D60BEBB93F3928D3A692501A8 /* JGProgressHUDIndicatorView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		777D5E8DFE6BC85FA7713BDF07EF8AB0 /* CloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751C185DE9233A57AF031D043426D5C4 /* CloseButton.swift */; };
 		7807E4544CE620CD6AB2561ADC0425EC /* JGProgressHUDSuccessIndicatorView.h in Headers */ = {isa = PBXBuildFile; fileRef = 88F9DE96E457738094A240B9A44DE401 /* JGProgressHUDSuccessIndicatorView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		780A2BE87454E8209CB1FF7F5B339CA3 /* JGProgressHUDPieIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3976CC2B35CCBC7F311F695FF3860A4C /* JGProgressHUDPieIndicatorView.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		782C5582613189572A50B43E49DB71B1 /* JGProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 7896EC42B7962736F4078A56989E016E /* JGProgressHUD.m */; };
 		7845BE0FF876B96E5FF8D9513E928CAF /* JGProgressHUDFadeZoomAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = C878EF09FC1DE071B397DC0FB3343F54 /* JGProgressHUDFadeZoomAnimation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7953BC2441CC6CDDCA4F70F763BD5D24 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2864D86499B7C519DD5F39EAAD2770B6 /* Foundation.framework */; };
 		7A925545F545829DDA86493E3A149A83 /* RDHCollectionViewGridLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 1676292B1F65985DA94906410CDC0CF1 /* RDHCollectionViewGridLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7CA5A9BA5246FDA8227233E310029392 /* Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72077A4822BD5E4F2661DBBEA64A69CF /* Alamofire.swift */; };
 		81AA1AD67B04AC07575C41E2520B8780 /* Request+AlamofireImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918182A46DEE8C82AC9C59272E93638B /* Request+AlamofireImage.swift */; };
 		86ED08F33B7D357932A9AB743E9D9EA7 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20F87E92B2B441B3C0F1EAA8A8884E5 /* Response.swift */; };
+		879A30A98BD109C1D4A6E79EC3F92697 /* JGProgressHUDErrorIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 64B0432DD08910BEB5156BE2AA094E8C /* JGProgressHUDErrorIndicatorView.m */; };
 		89564C6D85AE2A4DF13AF536497AD603 /* JGProgressHUDPieIndicatorView.h in Headers */ = {isa = PBXBuildFile; fileRef = E11BC5E07212023B8207D0AC31997E29 /* JGProgressHUDPieIndicatorView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8AB97551B3EC56D58DB1B40042D6A441 /* JGProgressHUD.h in Headers */ = {isa = PBXBuildFile; fileRef = A766ABD4D2021A313D8922A09DA7DB98 /* JGProgressHUD.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8CE70F0B66135405769A23C14D96AA15 /* JGProgressHUDPieIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3976CC2B35CCBC7F311F695FF3860A4C /* JGProgressHUDPieIndicatorView.m */; };
 		8D463A0A4C65C02FDD5211F0F3C6F8B8 /* Alamofire-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = E691BABC8B1065D97AFCB35861FF57FD /* Alamofire-dummy.m */; };
 		8EC7A8B9A682D8DE205F82153ADFC928 /* OpenWhiskResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4E7085580F49D0C1DE1E99F96DC564FA /* OpenWhiskResources.bundle */; };
 		907AB123FBC8BC9340D5B7350CE828DF /* SessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03319772E3BC504C907F14881815C404 /* SessionDelegate.swift */; };
@@ -65,7 +63,6 @@
 		9469DF81ECB494E84675969B5E13374C /* Alamofire-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9FA316B23D515F6D7ED3F8A3D96415 /* Alamofire-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		96572723CEBB0DF6FA6D6F25A3FAD2A3 /* Pods-vision-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2562D0E8AD8A48A5B77DF35AFF2352 /* Pods-vision-dummy.m */; };
 		9BF27487EC8401E943675FA598541922 /* AFIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4F62C688CA968997C959E804F65462 /* AFIError.swift */; };
-		9DB9BC32D9ECF36192E43A6FC728CACF /* JGProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 7896EC42B7962736F4078A56989E016E /* JGProgressHUD.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		9EBA127F90CA19F3F427C10900E5DB5C /* JGProgressHUDFadeAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D5D1AF29C0440362A2B3AA3062AACF3 /* JGProgressHUDFadeAnimation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9FF3A62F3DF972F429E1E341BE771FA0 /* OpenWhisk-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BDD90763141F982FD139F10686C8588 /* OpenWhisk-dummy.m */; };
 		A79AC30123B0C2177D67F6ED6A1B3215 /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5377CAC7AAEAF6324644805EDCA5474 /* SessionManager.swift */; };
@@ -74,17 +71,17 @@
 		ABD773F079925E644B8CB1394265D4F9 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1977AC187A5B3854CDB27DCC604A12 /* Config.swift */; };
 		AF158CAAF4DD319009AFC855DC995D90 /* ParameterEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E15B541110E51C3A0064A11AE78D23 /* ParameterEncoding.swift */; };
 		B198F87E2DBF56FFCD7ABF2BE84DFD5C /* AlamofireImage-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 76CACD98C31F73DECCF013FBA589D002 /* AlamofireImage-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B21E4FA84A3EB446470A904B9F3A78B0 /* JGProgressHUD-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A0B4E60B36FE37CE55B1345F42144C3 /* JGProgressHUD-dummy.m */; };
 		B6FD1293F7DDD20A3E14DACCA4B7F43C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2864D86499B7C519DD5F39EAAD2770B6 /* Foundation.framework */; };
 		B8154C96802336E5DDA5CEE97C3180A0 /* ResponseSerialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2AC5E73DD346B6568F7BB66D2A26764 /* ResponseSerialization.swift */; };
 		C0AEA97E7684DDAD56998C0AE198A433 /* ServerTrustPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8589D95DFF67FFF5750381DF20D12E /* ServerTrustPolicy.swift */; };
+		C13C7C3B7A47BA1A7AFA11CB4E71AE6D /* JGProgressHUDFadeZoomAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D558711E446D5AF878D6E1BF48093D1 /* JGProgressHUDFadeZoomAnimation.m */; };
 		C48DB1A4001B5B8B8B50A7C453163AD0 /* JGProgressHUDAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = D449F2DA05BC9C8B3D24CCDB1A87ED67 /* JGProgressHUDAnimation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C7A3408350643ADE1018826C766EE356 /* MultipartFormData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F28B9408F9D17D04AE74855BC915BA87 /* MultipartFormData.swift */; };
 		CF89FADD7E6FE88F4D5D08F8F6B145F5 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17ECEB368294D49677C94433E123F4BA /* SwiftyJSON.swift */; };
 		D09B49C2441DD6EB97A915F438FBCEF2 /* OpenWhiskConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 58F2184CFBE00309B90B79296EAD0652 /* OpenWhiskConfig.plist */; };
-		D1DCC96C235AF48AFABD6317E54926F5 /* JGProgressHUDSuccessIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = BA458E0F1249BBCA97E6119D1AF63FDE /* JGProgressHUDSuccessIndicatorView.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		D4872DC105CE8423DB1DE0F07199AD5E /* RDHCollectionViewGridLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = C6F4D6DBE8EC08AA3E9291730A313153 /* RDHCollectionViewGridLayout.m */; };
-		D883F171D2C7A40FC3DE6EB57A446DF7 /* JGProgressHUDErrorIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 64B0432DD08910BEB5156BE2AA094E8C /* JGProgressHUDErrorIndicatorView.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		D7E7FF42203A23B1F087B9B2E6887238 /* JGProgressHUDImageIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BDF91AAE3EF08AD7FC7453A80665467 /* JGProgressHUDImageIndicatorView.m */; };
+		DBD3C3DC62CE6BCE5197DB76AEC3BA93 /* JGProgressHUDIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 164420246D03B95CDFF5FB7FA3A27D2D /* JGProgressHUDIndicatorView.m */; };
 		DF1BBF94997A2F4248B42B25EA919EC2 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = C260221442616C08FFAF96584534C5A3 /* Result.swift */; };
 		E1F583CB4A68A928CD197250AA752926 /* TaskDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDBA5DECEF92A2100AE4CBEC40433572 /* TaskDelegate.swift */; };
 		E2057844AEE875108B01F3A1F6B73BB6 /* TagListView-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EAD0A59B3FE4D3755BF1A25C70CD68B /* TagListView-dummy.m */; };
@@ -94,9 +91,12 @@
 		E7B6C597CB8A19EC61AEB99681BF7DA7 /* OpenWhisk.h in Headers */ = {isa = PBXBuildFile; fileRef = 35C22DC127F28841504819E79A14B717 /* OpenWhisk.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EA06D80B12166E311D850FEDD371DD8F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2864D86499B7C519DD5F39EAAD2770B6 /* Foundation.framework */; };
 		ED854B70B070D7FDDA5911CA815043C2 /* JGProgressHUDImageIndicatorView.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B0B231CD0BED2641BD402059CF57A71 /* JGProgressHUDImageIndicatorView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ED9870C1FC8F3CDE6BF5C4A9D312D09F /* JGProgressHUDIndeterminateIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = B85C9A94F714AB11993B6BD2163A9ADE /* JGProgressHUDIndeterminateIndicatorView.m */; };
 		EE97E27EDD8013C92A7AB8920C893716 /* AlamofireImage-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = FA3BF8D79685ECC717D360C5BFA5D9F3 /* AlamofireImage-dummy.m */; };
 		EF3891FBC5E399BA011973530F0AE5D4 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E29659AE1AF0A0CFD28C47C125C6456 /* Image.swift */; };
+		F61E47D3CA2A60E12AF2DC908ECB6321 /* JGProgressHUDAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C617EA0CE9353A67456B7A9B533E91 /* JGProgressHUDAnimation.m */; };
 		F98749B28AD55F92A7F36488C932E508 /* TagListView-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 852E666EE2AD93C9EA7E4CD7980C40C1 /* TagListView-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FC524D4413AEA6B4C37ECC07AE66962C /* JGProgressHUD-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A0B4E60B36FE37CE55B1345F42144C3 /* JGProgressHUD-dummy.m */; };
 		FEA21DBE90FFFA123BD5B1B18F356A60 /* JGProgressHUDIndeterminateIndicatorView.h in Headers */ = {isa = PBXBuildFile; fileRef = 29E88BF485AC5E360EA79B307B5F798C /* JGProgressHUDIndeterminateIndicatorView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FFFDD494EE6D1B83DDAF5F2721F685A6 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1E1356BF358318CBCF1AC30FD01074 /* Validation.swift */; };
 /* End PBXBuildFile section */
@@ -824,7 +824,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DC9E5B9863A4B1806E2877DEC3DCC3CC /* Build configuration list for PBXNativeTarget "JGProgressHUD" */;
 			buildPhases = (
-				57B5BE77009E2336A3F528DF0BA29F2D /* Sources */,
+				E995C503074AF295CB26A70D87E39932 /* Sources */,
 				B4F81A8DC304E3E266FD1B1C14108FE7 /* Frameworks */,
 				CDD6A6F15B989D7122CCC8B534CC0E63 /* Headers */,
 				E33B68998E410D3B8FC5808F7B4259A0 /* Resources */,
@@ -1055,25 +1055,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		57B5BE77009E2336A3F528DF0BA29F2D /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				B21E4FA84A3EB446470A904B9F3A78B0 /* JGProgressHUD-dummy.m in Sources */,
-				9DB9BC32D9ECF36192E43A6FC728CACF /* JGProgressHUD.m in Sources */,
-				7019D2587E0AA201AEF8C09319D1FF55 /* JGProgressHUDAnimation.m in Sources */,
-				D883F171D2C7A40FC3DE6EB57A446DF7 /* JGProgressHUDErrorIndicatorView.m in Sources */,
-				5597298A201CB095F76D36B6A8C8811E /* JGProgressHUDFadeAnimation.m in Sources */,
-				0781C0E9971BCD97C52F1A053EB97DDA /* JGProgressHUDFadeZoomAnimation.m in Sources */,
-				56A54DEE7567ACC08FC79D6C4E554BFB /* JGProgressHUDImageIndicatorView.m in Sources */,
-				46196B61BABC54BA463AD72064D898D6 /* JGProgressHUDIndeterminateIndicatorView.m in Sources */,
-				38082DAABEC61FA8F13A507963AE3205 /* JGProgressHUDIndicatorView.m in Sources */,
-				780A2BE87454E8209CB1FF7F5B339CA3 /* JGProgressHUDPieIndicatorView.m in Sources */,
-				2DF9B5866AD77B64B15536DA4E04296D /* JGProgressHUDRingIndicatorView.m in Sources */,
-				D1DCC96C235AF48AFABD6317E54926F5 /* JGProgressHUDSuccessIndicatorView.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		5D0ADFF03C65B603AB88DE7261601EC5 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1124,6 +1105,25 @@
 				7298B73F98597A3C93AB872EB6255D4C /* UIButton+AlamofireImage.swift in Sources */,
 				569B251677908E2FE12D150D03458750 /* UIImage+AlamofireImage.swift in Sources */,
 				5111AEF65DC9CB2B58E24EE707CC3697 /* UIImageView+AlamofireImage.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E995C503074AF295CB26A70D87E39932 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FC524D4413AEA6B4C37ECC07AE66962C /* JGProgressHUD-dummy.m in Sources */,
+				782C5582613189572A50B43E49DB71B1 /* JGProgressHUD.m in Sources */,
+				F61E47D3CA2A60E12AF2DC908ECB6321 /* JGProgressHUDAnimation.m in Sources */,
+				879A30A98BD109C1D4A6E79EC3F92697 /* JGProgressHUDErrorIndicatorView.m in Sources */,
+				66D284FD4C72EEC21B6B365B4B5C1475 /* JGProgressHUDFadeAnimation.m in Sources */,
+				C13C7C3B7A47BA1A7AFA11CB4E71AE6D /* JGProgressHUDFadeZoomAnimation.m in Sources */,
+				D7E7FF42203A23B1F087B9B2E6887238 /* JGProgressHUDImageIndicatorView.m in Sources */,
+				ED9870C1FC8F3CDE6BF5C4A9D312D09F /* JGProgressHUDIndeterminateIndicatorView.m in Sources */,
+				DBD3C3DC62CE6BCE5197DB76AEC3BA93 /* JGProgressHUDIndicatorView.m in Sources */,
+				8CE70F0B66135405769A23C14D96AA15 /* JGProgressHUDPieIndicatorView.m in Sources */,
+				251773F056BA41A68BDD9C62633EB279 /* JGProgressHUDRingIndicatorView.m in Sources */,
+				09435816567501D89698B5F88A4E44B9 /* JGProgressHUDSuccessIndicatorView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1187,37 +1187,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		08217EFF5AE225FB3D3816849CCDF66F /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7A88F185D763DD5F51EAA9D6CF68497A /* Alamofire.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/Alamofire/Alamofire-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/Alamofire/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/Alamofire/Alamofire.modulemap";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_NAME = Alamofire;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
 		0824721B0951DB47812E4844C37248A8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D3C8CC506FBD5563318944611CB9168D /* Pods-vision.debug.xcconfig */;
@@ -1243,6 +1212,37 @@
 				PODS_ROOT = "$(SRCROOT)";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = Pods_vision;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		0C82732B1D2D0D732764C9F89E9D3A72 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 568D08B7AF76DEAA0BAE97DED36978E9 /* OpenWhisk.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/OpenWhisk/OpenWhisk-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/OpenWhisk/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/OpenWhisk/OpenWhisk.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = OpenWhisk;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1355,6 +1355,54 @@
 			};
 			name = Release;
 		};
+		437DF594CFCE62171EDBC3D59ADA4C45 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 568D08B7AF76DEAA0BAE97DED36978E9 /* OpenWhisk.xcconfig */;
+			buildSettings = {
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/OpenWhisk";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Target Support Files/OpenWhisk/ResourceBundle-OpenWhiskResources-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				PRODUCT_NAME = OpenWhiskResources;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Release;
+		};
+		4479683034A61DA271794006A90DF10A /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 568D08B7AF76DEAA0BAE97DED36978E9 /* OpenWhisk.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/OpenWhisk/OpenWhisk-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/OpenWhisk/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/OpenWhisk/OpenWhisk.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = OpenWhisk;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 		4C6F22DB407E4E96C05BA2484CE75C1D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F5A971B4B1BC48BFAC69E767675E071C /* JGProgressHUD.xcconfig */;
@@ -1385,55 +1433,6 @@
 			};
 			name = Debug;
 		};
-		54D3E64346ACE0AA6E4BFD39B384DB68 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 568D08B7AF76DEAA0BAE97DED36978E9 /* OpenWhisk.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/OpenWhisk/OpenWhisk-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/OpenWhisk/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/OpenWhisk/OpenWhisk.modulemap";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_NAME = OpenWhisk;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		575CFFA2A69664F92C7EAC9524BE9E74 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 568D08B7AF76DEAA0BAE97DED36978E9 /* OpenWhisk.xcconfig */;
-			buildSettings = {
-				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/OpenWhisk";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "Target Support Files/OpenWhisk/ResourceBundle-OpenWhiskResources-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				PRODUCT_NAME = OpenWhiskResources;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				WRAPPER_EXTENSION = bundle;
-			};
-			name = Release;
-		};
 		670E1F3EC587537443584335AFEFB23A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = BC9B08B3EE763E2A498A5422F7B6DB93 /* TagListView.xcconfig */;
@@ -1462,24 +1461,6 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		6DBD2A8439D4321ECACE53BF575A86D2 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 568D08B7AF76DEAA0BAE97DED36978E9 /* OpenWhisk.xcconfig */;
-			buildSettings = {
-				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/OpenWhisk";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "Target Support Files/OpenWhisk/ResourceBundle-OpenWhiskResources-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				PRODUCT_NAME = OpenWhiskResources;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				WRAPPER_EXTENSION = bundle;
 			};
 			name = Debug;
 		};
@@ -1514,7 +1495,38 @@
 			};
 			name = Debug;
 		};
-		72C2DCE46F9BD1A61C3F44027F635A7E /* Release */ = {
+		7122F3A8AA1426A6C30732CEC1967718 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D3297750E2A6C0F1D487E767C691C872 /* AlamofireImage.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/AlamofireImage/AlamofireImage-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/AlamofireImage/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/AlamofireImage/AlamofireImage.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = AlamofireImage;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		7C26971879CD43A211974809869CBCBC /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D3297750E2A6C0F1D487E767C691C872 /* AlamofireImage.xcconfig */;
 			buildSettings = {
@@ -1530,41 +1542,11 @@
 				GCC_PREFIX_HEADER = "Target Support Files/AlamofireImage/AlamofireImage-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/AlamofireImage/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "Target Support Files/AlamofireImage/AlamofireImage.modulemap";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = AlamofireImage;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		784D45BD01B6A4A066ED5EC84115205A /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7A88F185D763DD5F51EAA9D6CF68497A /* Alamofire.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/Alamofire/Alamofire-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/Alamofire/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/Alamofire/Alamofire.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = Alamofire;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 3.0;
@@ -1604,34 +1586,51 @@
 			};
 			name = Release;
 		};
-		93F4C66973B5CD4AC1E1FCE857E2BC21 /* Debug */ = {
+		903BF803340454FD718D594C94C941E6 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D3297750E2A6C0F1D487E767C691C872 /* AlamofireImage.xcconfig */;
+			baseConfigurationReference = 7A88F185D763DD5F51EAA9D6CF68497A /* Alamofire.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/AlamofireImage/AlamofireImage-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/AlamofireImage/Info.plist";
+				GCC_PREFIX_HEADER = "Target Support Files/Alamofire/Alamofire-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/Alamofire/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/AlamofireImage/AlamofireImage.modulemap";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_NAME = AlamofireImage;
+				MODULEMAP_FILE = "Target Support Files/Alamofire/Alamofire.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = Alamofire;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		A7E6580144ECE264DC556D35F3EFF870 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 568D08B7AF76DEAA0BAE97DED36978E9 /* OpenWhisk.xcconfig */;
+			buildSettings = {
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/OpenWhisk";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Target Support Files/OpenWhisk/ResourceBundle-OpenWhiskResources-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				PRODUCT_NAME = OpenWhiskResources;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				WRAPPER_EXTENSION = bundle;
 			};
 			name = Debug;
 		};
@@ -1674,6 +1673,37 @@
 				ONLY_ACTIVE_ARCH = YES;
 				STRIP_INSTALLED_PRODUCT = NO;
 				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+		AFD3BF198969CAC3978A67797D849245 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7A88F185D763DD5F51EAA9D6CF68497A /* Alamofire.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Alamofire/Alamofire-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/Alamofire/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/Alamofire/Alamofire.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = Alamofire;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
 		};
@@ -1767,44 +1797,14 @@
 			};
 			name = Release;
 		};
-		E7E6F3188FA5A33E2182E939712BB95D /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 568D08B7AF76DEAA0BAE97DED36978E9 /* OpenWhisk.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/OpenWhisk/OpenWhisk-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/OpenWhisk/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/OpenWhisk/OpenWhisk.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = OpenWhisk;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
 		0A3D5A000D5540719BDC26B99FE9A2AE /* Build configuration list for PBXNativeTarget "OpenWhisk" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				54D3E64346ACE0AA6E4BFD39B384DB68 /* Debug */,
-				E7E6F3188FA5A33E2182E939712BB95D /* Release */,
+				0C82732B1D2D0D732764C9F89E9D3A72 /* Debug */,
+				4479683034A61DA271794006A90DF10A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1821,8 +1821,8 @@
 		3CFB42910790CF0BDBCCEBAACD6B9367 /* Build configuration list for PBXNativeTarget "Alamofire" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				08217EFF5AE225FB3D3816849CCDF66F /* Debug */,
-				784D45BD01B6A4A066ED5EC84115205A /* Release */,
+				AFD3BF198969CAC3978A67797D849245 /* Debug */,
+				903BF803340454FD718D594C94C941E6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1848,8 +1848,8 @@
 		754EFBE1CB82766C8C6E2BDB3EA29D0D /* Build configuration list for PBXNativeTarget "OpenWhisk-OpenWhiskResources" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				6DBD2A8439D4321ECACE53BF575A86D2 /* Debug */,
-				575CFFA2A69664F92C7EAC9524BE9E74 /* Release */,
+				A7E6580144ECE264DC556D35F3EFF870 /* Debug */,
+				437DF594CFCE62171EDBC3D59ADA4C45 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1884,8 +1884,8 @@
 		E8A3B4915F4D7E60968949529F5AECE8 /* Build configuration list for PBXNativeTarget "AlamofireImage" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				93F4C66973B5CD4AC1E1FCE857E2BC21 /* Debug */,
-				72C2DCE46F9BD1A61C3F44027F635A7E /* Release */,
+				7122F3A8AA1426A6C30732CEC1967718 /* Debug */,
+				7C26971879CD43A211974809869CBCBC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

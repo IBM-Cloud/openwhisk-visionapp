@@ -89,8 +89,8 @@ public class Config {
     public class func getAuthToken() -> (apiKey: String?, apiSecret: String?)? {
         
         let dict = ProcessInfo.processInfo.environment
-        let key = dict["TESTAPIKEY"]
-        let secret = dict["TESTAPISECRET"]
+        let key = dict["OPENWHISK_TESTAPIKEY"]
+        let secret = dict["OPENWHISK_TESTAPISECRET"]
         
         return(key, secret)
     }

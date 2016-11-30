@@ -1,41 +1,41 @@
 PODS:
-  - Alamofire (4.0.0)
-  - AlamofireImage (3.0.0):
-    - Alamofire (~> 4.0)
-  - JGProgressHUD (1.3.1)
-  - OpenWhisk (0.2.0)
-  - RDHCollectionViewGridLayout (1.2.2)
-  - SwiftyJSON (3.0.0)
-  - TagListView (1.0.0)
+  - Alamofire (4.2.0)
+  - AlamofireImage (3.2.0):
+    - Alamofire (~> 4.1)
+  - JGProgressHUD (1.4)
+  - OpenWhisk (0.2.2)
+  - RDHCollectionViewGridLayout (1.2.5)
+  - SwiftyJSON (3.1.3)
+  - TagListView (1.1.0)
 
 DEPENDENCIES:
-  - Alamofire (= 4.0)
-  - AlamofireImage (= 3.0)
-  - JGProgressHUD (= 1.3.1)
-  - OpenWhisk (from `https://github.com/openwhisk/openwhisk-client-swift.git`, tag `0.2.1`)
-  - RDHCollectionViewGridLayout (= 1.2.2)
-  - SwiftyJSON (= 3.0)
-  - TagListView (= 1.0.0)
+  - Alamofire (= 4.2)
+  - AlamofireImage (= 3.2)
+  - JGProgressHUD (= 1.4)
+  - OpenWhisk (from `https://github.com/openwhisk/openwhisk-client-swift.git`, tag `0.2.2`)
+  - RDHCollectionViewGridLayout (= 1.2.5)
+  - SwiftyJSON (= 3.1.3)
+  - TagListView (= 1.1.0)
 
 EXTERNAL SOURCES:
   OpenWhisk:
     :git: https://github.com/openwhisk/openwhisk-client-swift.git
-    :tag: 0.2.1
+    :tag: 0.2.2
 
 CHECKOUT OPTIONS:
   OpenWhisk:
     :git: https://github.com/openwhisk/openwhisk-client-swift.git
-    :tag: 0.2.1
+    :tag: 0.2.2
 
 SPEC CHECKSUMS:
-  Alamofire: fef59f00388f267e52d9b432aa5d93dc97190f14
-  AlamofireImage: 6594aa1139a67dcd36cde6da79ea4e5b318e60fb
-  JGProgressHUD: 153053a21d81208cb5f659691996bcefce6a9885
-  OpenWhisk: 7c94c01eba086cc316ee3c5dc1bd6c8f5c94f974
-  RDHCollectionViewGridLayout: 9a0a574d47335101a417acee7ab9cb030373641b
-  SwiftyJSON: f57b2b44bc166617372d1c70773591fe9f0f5fd4
-  TagListView: 6bf4bded034c4c90b1e90d8cd3d8e1d852dba0a8
+  Alamofire: aa2e09d871c9160ac53c90e83c68064a94e3dfbe
+  AlamofireImage: 157ed682cc81d3b9db4fb90c1f12180ac552d93b
+  JGProgressHUD: 1617b0940cf80bb53e8f7d6f0fd69252ea45d6d4
+  OpenWhisk: 68be4ee6ca258051ee99323bd736317e550d1cf8
+  RDHCollectionViewGridLayout: 4b4229212ed8c136aa70101d92ecd43742ca62b6
+  SwiftyJSON: 38a8ea2006779c0fc4c310cb2ee8195327740faf
+  TagListView: d0267a71393f3c73db5c9ea2f979ac1125fcab56
 
-PODFILE CHECKSUM: e6d1fa82cd3e73df45d91875da4562ba8c43eb19
+PODFILE CHECKSUM: 2ae64335e7cbad51c2e1d1a9b1d4da6efb39eb44
 
 COCOAPODS: 1.0.1

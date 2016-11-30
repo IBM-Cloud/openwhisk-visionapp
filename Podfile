@@ -4,16 +4,16 @@ platform :ios, '10.0'
 use_frameworks!
 
 workspace 'vision.xcworkspace'
-xcodeproj 'vision/vision.xcodeproj'
+project 'vision/vision.xcodeproj'
 
 target 'vision' do
-  pod 'OpenWhisk', :git => 'https://github.com/openwhisk/openwhisk-client-swift.git', :tag => '0.2.1'
-  pod 'Alamofire', '4.0'
-  pod 'AlamofireImage', '3.0'
-  pod 'SwiftyJSON', '3.0'
-  pod 'TagListView', '1.0.0'
-  pod 'JGProgressHUD', '1.3.1'
-  pod 'RDHCollectionViewGridLayout', '1.2.2'
+  pod 'OpenWhisk', :git => 'https://github.com/openwhisk/openwhisk-client-swift.git', :tag => '0.2.2'
+  pod 'Alamofire', '4.2'
+  pod 'AlamofireImage', '3.2'
+  pod 'SwiftyJSON', '3.1.3'
+  pod 'TagListView', '1.1.0'
+  pod 'JGProgressHUD', '1.4'
+  pod 'RDHCollectionViewGridLayout', '1.2.5'
 end
 
 post_install do |installer|

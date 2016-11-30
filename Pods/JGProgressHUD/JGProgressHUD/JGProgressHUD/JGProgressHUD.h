@@ -87,14 +87,14 @@
 /**
  A block to be invoked when the HUD view is tapped.
  
- @note The interaction type of the HUD must be JGProgressHUDInteractionTypeBlockTouchesOnHUDView or JGProgressHUDInteractionTypeBlockNoTouches, if not this block won't be fired.
+ @note The interaction type of the HUD must be @c JGProgressHUDInteractionTypeBlockTouchesOnHUDView or @c JGProgressHUDInteractionTypeBlockAllTouches, otherwise this block won't be fired.
  */
 @property (nonatomic, copy) void (^tapOnHUDViewBlock)(JGProgressHUD *HUD);
 
 /**
  A block to be invoked when the area outside of the HUD view is tapped.
  
- @note The interaction type of the HUD must be JGProgressHUDInteractionTypeBlockNoTouches, if not this block won't be fired.
+ @note The interaction type of the HUD must be @c JGProgressHUDInteractionTypeBlockAllTouches, otherwise this block won't be fired.
  */
 @property (nonatomic, copy) void (^tapOutsideBlock)(JGProgressHUD *HUD);
 
@@ -109,12 +109,12 @@
 @property (nonatomic, strong, readonly) UIView *contentView;
 
 /**
- The label used to present text on the HUD. set the @c text property of this label to change the displayed text. You may not change the label's @c frame or @c bounds.
+ The label used to present text on the HUD. Set the @c text property of this label to change the displayed text. You may not change the label's @c frame or @c bounds.
  */
 @property (nonatomic, strong, readonly) UILabel *textLabel;
 
 /**
- The label used to present detail text on the HUD. set the @c text property of this label to change the displayed text. You may not change the label's @c frame or @c bounds.
+ The label used to present detail text on the HUD. Set the @c text property of this label to change the displayed text. You may not change the label's @c frame or @c bounds.
  */
 @property (nonatomic, strong, readonly) UILabel *detailTextLabel;
 
@@ -126,13 +126,22 @@
 @property (nonatomic, strong) JGProgressHUDIndicatorView *indicatorView;
 
 /**
- Interaction type of the HUD.
+ Interaction type of the HUD. Determines whether touches should be let through to the views behind the HUD.
  
  @sa JGProgressHUDInteractionType.
  
  @b Default: JGProgressHUDInteractionTypeBlockAllTouches.
  */
 @property (nonatomic, assign) JGProgressHUDInteractionType interactionType;
+
+/**
+ Parallax mode for the HUD. This setting determines whether the HUD should have a parallax (@c UIDeviceMotion) effect.
+ 
+ @sa JGProgressHUDParallaxMode.
+ 
+ @b Default: JGProgressHUDParallaxModeDevice.
+ */
+@property (nonatomic, assign) JGProgressHUDParallaxMode parallaxMode;
 
 /**
  The appearance style of the HUD.
@@ -191,7 +200,7 @@
 @property (nonatomic, assign) NSTimeInterval layoutChangeAnimationDuration;
 
 /**
- If the HUD is visible on screen.
+ @return Whether the HUD is visible on screen.
  */
 @property (nonatomic, assign, readonly, getter = isVisible) BOOL visible;
 
@@ -219,19 +228,24 @@
  */
 @property (nonatomic, assign) NSTimeInterval minimumDisplayTime;
 
+/**
+ Determines whether Voice Over announcements should be made upon displaying the HUD (if Voice Over is active).
+ @b Default: YES
+ */
+@property (nonatomic, assign) BOOL voiceOverEnabled;
 
 
 
 /**
- Shows the HUD animated. You should preferably show the HUD in a UIViewController's view.
+ Shows the HUD animated. You should preferably show the HUD in a UIViewController's view. The HUD will be repositioned in response to rotation and keyboard show/hide notifications.
  @param view The view to show the HUD in. The frame of the @c view will be used to calculate the position of the HUD.
  */
 - (void)showInView:(UIView *)view;
 
 /**
- Shows the HUD. You should preferably show the HUD in a UIViewController's view.
+ Shows the HUD. You should preferably show the HUD in a UIViewController's view.  The HUD will be repositioned in response to rotation and keyboard show/hide notifications.
  @param view The view to show the HUD in. The frame of the @c view will be used to calculate the position of the HUD.
- @param animated If th HUD should show with an animation.
+ @param animated If the HUD should show with an animation.
  */
 - (void)showInView:(UIView *)view animated:(BOOL)animated;
 
@@ -243,10 +257,10 @@
 - (void)showInRect:(CGRect)rect inView:(UIView *)view;
 
 /**
- Shows the HUD animated. You should preferably show the HUD in a UIViewController's view.
+ Shows the HUD. You should preferably show the HUD in a UIViewController's view.
  @param view The view to show the HUD in.
  @param rect The rect allocated in @c view for displaying the HUD.
- @param animated If th HUD should show with an animation.
+ @param animated If the HUD should show with an animation.
  */
 - (void)showInRect:(CGRect)rect inView:(UIView *)view animated:(BOOL)animated;
 

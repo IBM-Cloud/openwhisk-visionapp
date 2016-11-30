@@ -1,34 +1,48 @@
 # Swift Client SDK for OpenWhisk
-This is a Swift-based client SDK for OpenWhisk. You can use it to connect to the [IBM Bluemix OpenWhisk service](http://www.ibm.com/cloud-computing/bluemix/openwhisk/), or you own installation of [OpenWhisk](https://github.com/openwhisk/openwhisk).  It partially implements the OpenWhisk [REST API](https://github.com/openwhisk/openwhisk/blob/master/docs/reference.md#rest-api) and allows you to invoke actions and fire triggers. The client SDK is compatible with Swift 2.x and runs on iOS 9, WatchOS 2, and Darwin.  Since this code uses classes like NSURLSession, Linux support is linked to the current status of [Foundation on Linux](https://github.com/apple/swift-corelibs-foundation). We have a Swift 3 branch that updates the code to the latest syntax, warning: it is untested. 
+This is a Swift-based client SDK for OpenWhisk. You can use it to connect to the [IBM Bluemix OpenWhisk service](http://www.ibm.com/cloud-computing/bluemix/openwhisk/), or you own installation of [OpenWhisk](https://github.com/openwhisk/openwhisk).  It partially implements the OpenWhisk [REST API](https://github.com/openwhisk/openwhisk/blob/master/docs/reference.md#rest-api) and allows you to invoke actions and fire triggers. The client SDK is compatible with Swift 3.x and runs on iOS 9 & 10, WatchOS 3, and Darwin.  Since this code uses classes like URLSession, Linux support is linked to the current status of [Foundation on Linux](https://github.com/apple/swift-corelibs-foundation). 
 
 ## Installation
-You can install the SDK using the source code in this repo, as a Cocoapod for iOS and WatchOS 2 apps, Carthage, and as a package using the Swift Package Manager for Darwin CLI apps.
+You can install the SDK using the source code in this repo, as a Cocoapod for iOS and WatchOS apps, Carthage, and as a package using the Swift Package Manager for Darwin CLI apps.
 
 ### Source Code Installation
 To build the source code:
 - Clone this repo.
-- Open the `OpenWhisk.xcodeproj` file in XCode 7.2 or 7.3.
-- Build the OpenWhisk target for an iOS app or the OpenWhiskWatch target for a WatchOS 2 app.
+- Open the `OpenWhisk.xcodeproj` file in Xcode 8.0
+- Build the OpenWhisk target for an iOS app or the OpenWhiskWatch target for a WatchOS app.
 - Locate the binary framework file (usually in `debug` or `release` directories at `~/Library/Developer/Xcode/DerivedData/$projectName-*`) and add it to the "Embedded Binaries" list in the General settings of your apps' target.
 
 ### CocoaPods Installation
 The [official CocoaPods website](http://cocoapods.org) has detailed instructions on how to install and use CocoaPods.
 
-The following lines in a Podfile will install the SDK for an iOS app with a watch OS 2 extension: 
+The following lines in a Podfile will install the SDK for an iOS app with a watch OS extension: 
 
 ```
 install! 'cocoapods', :deterministic_uuids => false
 use_frameworks!
 
 target 'MyApp' do
-     pod 'OpenWhisk', :git => 'https://github.com/openwhisk/openwhisk-client-swift.git', :tag => '0.1.7'
+     pod 'OpenWhisk', :git => 'https://github.com/openwhisk/openwhisk-client-swift.git', :tag => '0.2.2'
 end
 
 target 'MyApp WatchKit Extension' do 
-     pod 'OpenWhisk', :git => 'https://github.com/openwhisk/openwhisk-client-swift.git', :tag => '0.1.7'
+     pod 'OpenWhisk', :git => 'https://github.com/openwhisk/openwhisk-client-swift.git', :tag => '0.2.2'
 end
 ```
 You may get the warning 'target overrides the `EMBEDDED_CONTENT_CONTAINS_SWIFT` ' when you have a watch target.  You can eliminate this warning by changing this setting in "Build Settings" to the value '$(inherited)'.
+
+After installation, open your project workspace.  You may get the following warning when building:
+`Use Legacy Swift Language Version” (SWIFT_VERSION) is required to be configured correctly for targets which use Swift. Use the [Edit > Convert > To Current Swift Syntax…] menu to choose a Swift version or use the Build Settings editor to configure the build setting directly.`
+This is caused if Cocoapods does not update the Swift version in the Pods project.  To fix, select the Pods project and the OpenWhisk target.  Go to Build Settings and change the setting `Use Legacy Swift Language Version` to `no`. You can also add the following post installation instructions at the end of you Podfile:
+
+```
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    target.build_configurations.each do |config|
+      config.build_settings['SWIFT_VERSION'] = '3.0'
+    end
+  end
+end
+```
 
 ### Carthage Installation
 
@@ -37,7 +51,7 @@ Visit the [official Carthage site on Github](https://github.com/Carthage/Carthag
 Here is an example Cartfile for iOS installation using Carthage:  
 
 ```
-github "openwhisk/openwhisk-client-swift.git" ~> 0.1.7 # Or latest version
+github "openwhisk/openwhisk-client-swift.git" ~> 0.2.2 # Or latest version
 
 ```
 
@@ -59,7 +73,7 @@ let package = Package(
 
 To get up and running quickly, create a WhiskCredentials object with your OpenWhisk API credentials and create a Whisk instance from that.
 
-In Swift 2.x, you create a credentials object as:
+You create a credentials object as:
 
 ```
 let credentialsConfiguration = WhiskCredentials(accessKey: "myKey", accessToken: "myToken")
@@ -167,20 +181,20 @@ whisk.baseURL = "http://localhost:8080"
 ```
 will use an OpenWhisk running at localhost:8080.  If you do not specify the baseUrl, the Mobile SDK will use the instance running at https://openwhisk.ng.bluemix.net
 
-You can pass in a custom NSURLSession in case you require special network handling.  For example, you may have your own OpenWhisk installation that uses self-signed certificates:
+You can pass in a custom URLSession in case you require special network handling.  For example, you may have your own OpenWhisk installation that uses self-signed certificates:
 
 ```swift
 
 // create a network delegate that trusts everything
-class NetworkUtilsDelegate: NSObject, NSURLSessionDelegate {
-    func URLSession(session: NSURLSession, didReceiveChallenge challenge: NSURLAuthenticationChallenge, completionHandler: (NSURLSessionAuthChallengeDisposition, NSURLCredential?) -> Void) {
+class NetworkUtilsDelegate: NSObject, URLSessionDelegate {
+    func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
         
-        completionHandler(NSURLSessionAuthChallengeDisposition.UseCredential, NSURLCredential(forTrust: challenge.protectionSpace.serverTrust!))
+        completionHandler(Foundation.URLSession.AuthChallengeDisposition.useCredential, URLCredential(trust: challenge.protectionSpace.serverTrust!))
     }
 }
 
-// create an NSURLSession that uses the trusting delegate
-let session = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration(), delegate: NetworkUtilsDelegate(), delegateQueue:NSOperationQueue.mainQueue())
+// create an URLSession that uses the trusting delegate
+let session = URLSession(configuration: URLSessionConfiguration.default, delegate: NetworkUtilsDelegate(), delegateQueue:OperationQueue.main)
 
 // set the SDK to use this urlSession instead of the default shared one
 whisk.urlSession = session

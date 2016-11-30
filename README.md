@@ -51,8 +51,8 @@ for image analysis in the cloud, without deploying or managing a single server.
 ## Application Requirements
 
 * IBM Bluemix account. [Sign up][bluemix_signup_url] for Bluemix, or use an existing account.
-* IBM Bluemix OpenWhisk early access. [Sign up for Bluemix OpenWhisk](https://new-console.ng.bluemix.net/openwhisk).
-* XCode 8.0, iOS 10, Swift 3
+* IBM Bluemix OpenWhisk early access. [Sign up for Bluemix OpenWhisk](https://console.ng.bluemix.net/openwhisk).
+* XCode 8.1, iOS 10, Swift 3.0
 
 ## Preparing the environment
 
@@ -113,7 +113,7 @@ the current OpenWhisk namespace and your OpenWhisk authorization key.
   ```
 
 1. Set the value of the constants **WhiskAppKey** and **WhiskAppSecret**
-to your OpenWhisk credentials. You can retrieve them from the [iOS SDK configuration page](https://new-console.ng.bluemix.net/openwhisk/sdk/ios).
+to your OpenWhisk credentials. You can retrieve them from the [iOS SDK configuration page](https://console.ng.bluemix.net/openwhisk/sdk/ios).
 
 1. Save the file
 
