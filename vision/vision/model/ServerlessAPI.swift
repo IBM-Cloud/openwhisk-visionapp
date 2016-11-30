@@ -33,7 +33,7 @@ class ServerlessAPI {
   let ActionName = "vision-analysis"
   
   // TODO: Put your OpenWhisk key and token here
-  // You can obtain the values at https://new-console.ng.bluemix.net/openwhisk/sdk/ios
+  // You can obtain the values at https://console.ng.bluemix.net/openwhisk/sdk/ios
   let WhiskAppKey = ""
   let WhiskAppSecret = ""
   
