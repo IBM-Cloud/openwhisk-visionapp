@@ -16,7 +16,7 @@
 
 /**
  * Called by Whisk.
- * 
+ *
  * It expects the following parameters as attributes of "args"
  * - cloudantUrl: "https://username:password@host"
  * - cloudantDbName: "openwhisk-vision"
@@ -24,22 +24,19 @@
  * - imageDocumentId: "image document ID in cloudant"
  */
 function main(args) {
-  if (mainImpl(args, function (err, result) {
+  return new Promise(function(resolve, reject) {
+    mainImpl(args, function(err, result) {
       if (err) {
-        whisk.error(err);
+        reject(err);
       } else {
-        whisk.done(result, null);
+        resolve(result);
       }
-    })) {
-    return whisk.async();
-  }
+    });
+  });
 }
 
 /**
- * Uses a callback so that this same code can be imported in another JavaScript
- * to test the function outside of OpenWhisk.
- * 
- * mainCallback(err, analysis)
+ * @param mainCallback(err, analysis)
  */
 function mainImpl(args, mainCallback) {
   var fs = require('fs')
@@ -50,8 +47,8 @@ function mainImpl(args, mainCallback) {
   if (args.hasOwnProperty("imageDocumentId")) {
     var imageDocumentId = args.imageDocumentId;
     console.log("[", imageDocumentId, "] Processing image.jpg from document");
-    var nano = require("nano")(args.cloudantUrl);
-    var visionDb = nano.db.use(args.cloudantDbName);
+    var cloudant = require("cloudant")({url: args.cloudantUrl});
+    var visionDb = cloudant.db.use(args.cloudantDbName);
 
     // use image id to build a unique filename
     var fileName = imageDocumentId + "-image.jpg";
