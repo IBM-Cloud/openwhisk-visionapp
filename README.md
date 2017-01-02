@@ -97,7 +97,7 @@ the credentials obtained from the respective service dashboards in Bluemix:
 ### Configure XCode
 
 To configure the iOS application, you need the credentials of the Cloudant service created above,
-the current OpenWhisk namespace and your OpenWhisk authorization key.
+your OpenWhisk authorization key.
 
 1. Open **vision.xcworkspace** with XCode
 
@@ -105,15 +105,18 @@ the current OpenWhisk namespace and your OpenWhisk authorization key.
 
 1. Set the value of the constant **CloudantUrl** to the Cloudant service credentials url.
 
-1. Set the value of the constant **ActionNamespace** to the name of the namespace
-  where the action was created. You can retrieve the current namespace with:
-
-  ```
-  wsk property get --namespace
-  ```
-
 1. Set the value of the constants **WhiskAppKey** and **WhiskAppSecret**
-to your OpenWhisk credentials. You can retrieve them from the [iOS SDK configuration page](https://console.ng.bluemix.net/openwhisk/sdk/ios).
+to your OpenWhisk credentials. You can retrieve them from the [iOS SDK configuration page](https://console.ng.bluemix.net/openwhisk/learn/ios-sdk) or you can retrieve the key and secret with the following CLI command:
+
+  ```
+  wsk property get --auth
+  ```
+
+  ```
+  whisk auth kkkkkkkk-kkkk-kkkk-kkkk-kkkkkkkkkkkk:tttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt
+  ```
+
+  The strings before and after the colon are your key and secret, respectively.
 
 1. Save the file
 

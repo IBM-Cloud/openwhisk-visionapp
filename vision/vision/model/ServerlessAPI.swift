@@ -27,9 +27,7 @@ class ServerlessAPI {
   let CloudantUrl = "https://username:password@host.cloudant.com"
   let CloudantDbName = "openwhisk-vision"
   
-  // TODO: Change YOUR_NAMESPACE to the namespace where the vision-analysis action was created
-  // You can get the value with "wsk property get --namespace"
-  let ActionNamespace = "YOUR_NAMESPACE"
+  let ActionNamespace = "_"
   let ActionName = "vision-analysis"
   
   // TODO: Put your OpenWhisk key and token here
