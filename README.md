@@ -6,9 +6,9 @@ by using IBM visual recognition technologies.
 Take a photo or select an existing picture, let the application generate a list of tags and detect
 people, buildings, objects in the picture. Share the results with your network.
 
-  <img src="xdocs/ios-simulator-screenshot.png" width="200"/>
-  <img src="xdocs/ios-simulator-results.png" width="200"/>
-  <img src="xdocs/ios-simulator-results-place.png" width="200"/>
+  <img src="xdocs/ios-simulator-screenshot.png" width="150"/>
+  <img src="xdocs/ios-simulator-results.png" width="150"/>
+  <img src="xdocs/ios-simulator-results-place.png" width="150"/>
 
 ## Overview
 
@@ -17,7 +17,10 @@ people, buildings, objects in the picture. Share the results with your network.
   * OpenWhisk
   * Cloudant
 
-![Architecture](http://g.gravizo.com/g?
+![Architecture](https://g.gravizo.com/source/analysis?https%3A%2F%2Fraw.githubusercontent.com%2FIBM-Bluemix%2Fopenwhisk-visionapp%2Fmaster%2FREADME.md)
+<details>
+<summary></summary>
+analysis
   digraph G {
     node [fontname = "helvetica"]
     /* stores image */
@@ -33,12 +36,14 @@ people, buildings, objects in the picture. Share the results with your network.
     openwhisk -> app
     /* services on top */
     {rank=source; cloudant }
-    /* styling */
+    /* styling ****/
     cloudant [shape=circle style=filled color="%234E96DB" fontcolor=white label="Cloudant"]
-    watson [shape=circle style=filled color="%234E96DB" fontcolor=white label="Watson\\nVisual\\nRecognition"]
+    watson [shape=circle style=filled color="%234E96DB" fontcolor=white label="Watson\nVisual\nRecognition"]
     openwhisk [shape=circle style=filled color="%2324B643" fontcolor=white label="OpenWhisk"]
   }
+analysis
 )
+</details>
 
 The application sends the picture to a Cloudant database. Then it calls an OpenWhisk action that
 will analyze the picture and send back the results of the analysis.
