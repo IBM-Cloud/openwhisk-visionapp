@@ -6,9 +6,7 @@ by using IBM visual recognition technologies.
 Take a photo or select an existing picture, let the application generate a list of tags and detect
 people, buildings, objects in the picture. Share the results with your network.
 
-  <img src="xdocs/ios-simulator-screenshot.png" width="150"/>
-  <img src="xdocs/ios-simulator-results.png" width="150"/>
-  <img src="xdocs/ios-simulator-results-place.png" width="150"/>
+<img src="xdocs/ios-simulator-screenshot.png" width="150"/> <img src="xdocs/ios-simulator-results.png" width="150"/> <img src="xdocs/ios-simulator-results-place.png" width="150"/>
 
 ## Overview
 
