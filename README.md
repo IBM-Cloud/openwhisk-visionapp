@@ -15,10 +15,10 @@ people, buildings, objects in the picture. Share the results with your network.
   * OpenWhisk
   * Cloudant
 
-![Architecture](https://g.gravizo.com/source/analysis?https%3A%2F%2Fraw.githubusercontent.com%2FIBM-Bluemix%2Fopenwhisk-visionapp%2Fmaster%2FREADME.md)
+![Architecture](https://g.gravizo.com/source/vision_analysis?https%3A%2F%2Fraw.githubusercontent.com%2FIBM-Bluemix%2Fopenwhisk-visionapp%2Fmaster%2FREADME.md)
 <details>
 <summary></summary>
-analysis
+vision_analysis
   digraph G {
     node [fontname = "helvetica"]
     /* stores image */
@@ -39,7 +39,7 @@ analysis
     watson [shape=circle style=filled color="%234E96DB" fontcolor=white label="Watson\nVisual\nRecognition"]
     openwhisk [shape=circle style=filled color="%2324B643" fontcolor=white label="OpenWhisk"]
   }
-analysis
+vision_analysis
 </details>
 
 The application sends the picture to a Cloudant database. Then it calls an OpenWhisk action that
