@@ -40,7 +40,6 @@ analysis
     openwhisk [shape=circle style=filled color="%2324B643" fontcolor=white label="OpenWhisk"]
   }
 analysis
-)
 </details>
 
 The application sends the picture to a Cloudant database. Then it calls an OpenWhisk action that
