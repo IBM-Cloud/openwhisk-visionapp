@@ -1,14 +1,16 @@
-# Vision App - イメージのタグ付けとフェイスディテクションをIBM Cloud(Bluemix)で作成するサンプルiOSアプリケーション
+# Vision App - a sample iOS app for image tagging and face detection built with IBM Bluemix OpenWhisk
 
-Vision Appは、自動でイメージにタグを付けて顔認識をする、サンプルiOSアプリケーションです。 これらの仕組みは、IBM visual recognitionテクノロジーが使用されています。
+Vision App is a sample iOS application to automatically tag images and detect faces
+by using IBM visual recognition technologies.
 
-写真を撮るか、既存の画像を選択し、アプリケーションでタグのリストを作成し、画像内の人物、建物、オブジェクトを検出します。結果はインターネットで共有できます。
+Take a photo or select an existing picture, let the application generate a list of tags and detect
+people, buildings, objects in the picture. Share the results with your network.
 
 <img src="xdocs/ios-simulator-screenshot.png" width="150"/> <img src="xdocs/ios-simulator-results.png" width="150"/> <img src="xdocs/ios-simulator-results-place.png" width="150"/>
 
 ## Overview
 
- IBM Cloud(Bluemix)で作成するこのアプリは以下の機能を使用します:
+ Built using IBM Bluemix, the application uses:
   * Watson Visual Recognition
   * OpenWhisk
   * Cloudant
@@ -40,66 +42,73 @@ vision_analysis
 vision_analysis
 </details>
 
-このアプリケーションは、画像をCloudantデータベースに送信します。次に、OpenWhiskアクションを呼び出して画像を分析し、分析結果を返します。
+The application sends the picture to a Cloudant database. Then it calls an OpenWhisk action that
+will analyze the picture and send back the results of the analysis.
 
-このアプリケーションは、ユースケースの1例です。この例で実装されているOpenWhiskアクションを装備した別のユースケースは、検索機能を向上させるために画像をライブラリに自動的に分類します。同じOpenWhiskアクションですが、別のコンテキストで使用します。実際、このアクションでは、単一のサーバーを展開または管理することなく、クラウド内のイメージ分析用のマイクロサービスを作成しました。
+This application is one example use case. Equipped with the OpenWhisk action implemented in this example,
+an other use case could be to automatically classify images in a library to improve search capabilities:
+the same OpenWhisk action but used in a different context. Indeed with this action, we created a microservice
+for image analysis in the cloud, without deploying or managing a single server.
 
-## 事前作業
+## Application Requirements
 
-* IBM Cloud(Bluemix) アカウントの作成。IBM Cloudへ [Sign up][bluemix_signup_url] へサインアップするか、既存のアカウントを利用してください。
-* IBM Cloud Functions(OpenWhisk) へのアクセスはこちら [Sign up for Bluemix OpenWhisk](https://console.ng.bluemix.net/openwhisk) から。
+* IBM Bluemix account. [Sign up][bluemix_signup_url] for Bluemix, or use an existing account.
+* IBM Bluemix OpenWhisk early access. [Sign up for Bluemix OpenWhisk](https://console.ng.bluemix.net/openwhisk).
 * XCode 8.1, iOS 10, Swift 3.0
 
-## 環境の準備
+## Preparing the environment
 
-### コードの取得
+### Get the code
 
-* このリポジトリをローカル環境へCloneするか、ターミナルから次のコマンドを実行して下さい。
+* Clone the app to your local environment from your terminal using the following command:
 
   ```
   git clone https://github.com/IBM-Bluemix/openwhisk-visionapp.git
   ```
 
-* または [this archive](https://github.com/IBM-Bluemix/openwhisk-visionapp/archive/master.zip) から、圧縮したファイルをダウンロードして下さい。
+* or Download and extract the source code from [this archive](https://github.com/IBM-Bluemix/openwhisk-visionapp/archive/master.zip)
 
-### IBM Cloud (Bluemix) サービス
+### Create the Bluemix Services
 
-1. IBM Cloud (Bluemix) コンソールを開きます
+1. Open the IBM Bluemix console
 
-1. Cloudant NoSQL DBサービスインスタンスを次の名前で作成します **cloudant-for-vision**
+1. Create a Cloudant NoSQL DB service instance named **cloudant-for-vision**
 
-1. Cloudantのダッシュボードを開き、新しいデータベースを次の名前で作成します **openwhisk-vision**
+1. Open the Cloudant service dashboard and create a new database named **openwhisk-vision**
 
-1. Watson Visual Recognitionサービスインスタンスを次の名前で作成します **visualrecognition-for-vision**
+1. Create a Watson Visual Recognition service instance named **visualrecognition-for-vision**
 
-***Note***: *もし既にこれらのサービスインスタンスを作成済みでしたら、それらを再利用しても結構です。その場合、Swiftのコードで指定しているサービス名を適宜置き換えて下さい。*
+***Note***: *if you have existing instances of these services, you don't need to create new instances.
+You can simply reuse the existing ones.*
 
-### Cloud Functions (OpenWhisk) Actions
+### Deploy OpenWhisk Actions
 
-1. 次のコマンドで既存のアクションリストを確認できます。
+1. Ensure your OpenWhisk command line interface is property configured with:
 
   ```
   wsk list
   ```
 
-1. 次のコマンドで、新たにアクションを作成します。URLやKeyは適宜自分の環境のものに置き換えて下さい。これらの情報は、IBM Cloud (Bluemix)上の各サービスの資格情報から確認することができます。資格情報が無い場合は新規作成して下さい。
+1. Create the action using the following command line replacing the placeholders with
+the credentials obtained from the respective service dashboards in Bluemix:
 
   ```
   wsk action create -p cloudantUrl [URL] -p cloudantDbName openwhisk-vision -p watsonApiKey [123] vision-analysis analysis.js
   ```
 
-### XCodeでの実装
+### Configure XCode
 
-iOSアプリケーションで使用するために、作成したIBM Cloud (Bluemix)の各サービスの情報をSwiftのコード上へ記述します。Cloudantの資格情報、OpenWhiskの名前空間(namespace)とAppKeyが必要になります。
+To configure the iOS application, you need the credentials of the Cloudant service created above,
+your OpenWhisk authorization key.
 
-1. **vision.xcworkspace** を、XCodeで開きます
+1. Open **vision.xcworkspace** with XCode
 
-1. **vision/vision/model/ServerlessAPI.swift** を開きます
+1. Open the file **vision/vision/model/ServerlessAPI.swift**
 
-1. **CloudantUrl** へ、Cloudantサービスの資格情報に記載されているURLを記述します
+1. Set the value of the constant **CloudantUrl** to the Cloudant service credentials url.
 
-1. **WhiskAppKey** と **WhiskAppSecret** へ、Cloud Functions (OpenWhisk)の資格情報にある値を記述します
-これらの値は、 [iOS SDK configuration page](https://console.ng.bluemix.net/openwhisk/learn/ios-sdk) から取得するか、以下のCLIコマンドで取得することができます
+1. Set the value of the constants **WhiskAppKey** and **WhiskAppSecret**
+to your OpenWhisk credentials. You can retrieve them from the [iOS SDK configuration page](https://console.ng.bluemix.net/openwhisk/learn/ios-sdk) or you can retrieve the key and secret with the following CLI command:
 
   ```
   wsk property get --auth
@@ -109,27 +118,19 @@ iOSアプリケーションで使用するために、作成したIBM Cloud (Bl
   whisk auth kkkkkkkk-kkkk-kkkk-kkkk-kkkkkkkkkkkk:tttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt
   ```
 
-  コロンの前の文字列がkey、後ろの文字列がsecretです。
+  The strings before and after the colon are your key and secret, respectively.
 
-1. ファイルを保存します
+1. Save the file
 
-## アプリケーションのビルド・実行
+## Running the application
 
 ### With the iOS simulator
 
-1. iOS10以降では、カメラアクセスの目的を設定しないと強制終了します　*info.plist* を設定します
-
-　　Key：NSCameraUsageDescription
-
-　　Description：任意の説明文
-
-  <img src="img/readme01.png" width="300"/>
-
-1. *iPhone 6s* またはそれ以降をターゲットに指定して、Xcodeで実行します
+1. Start the application from XCode with *iPhone 6s* as the target
 
   <img src="xdocs/ios-set-target.png" width="300"/>
 
-1. 既存の写真を選択します
+1. Select an existing picture
 
   <img src="xdocs/ios-simulator-select.png" width="200">
 
@@ -138,7 +139,7 @@ iOSアプリケーションで使用するために、作成したIBM Cloud (Bl
   Drag and drop images from the Finder to the simular window.
   This will open the Photos app and you should see your images.*
 
-1. 写真はIBM Cloud上のVisual Recognition APIへ送られ、解析結果が帰ってきます
+1. The picture is sent for analysis and results are returned:
 
   <img src="xdocs/ios-simulator-results.png" width="200">
 
@@ -148,7 +149,7 @@ iOSアプリケーションで使用するために、作成したIBM Cloud (Bl
   The highlighted tags will be used when sharing the picture.
   You can tap tags to toggle their state.
 
-1. Shareボタンを押すと、iOS標準のシェア画面が開きます
+1. Press the Share button. This opens the standard iOS sharing screen.
 
   <img src="xdocs/ios-simulator-share.png" width="200">
 
@@ -157,7 +158,7 @@ iOSアプリケーションで使用するために、作成したIBM Cloud (Bl
   Under Twitter, add your account (no need for the Twitter app to be installed).
   You can go back to the home screen with Cmd+Shift+H*
 
-1. 例えばTwitterを選択します
+1. Pick Twitter as example.
 
   <img src="xdocs/ios-simulator-twitter.png" width="200">
 
@@ -166,7 +167,7 @@ iOSアプリケーションで使用するために、作成したIBM Cloud (Bl
 
 ## Code Structure
 
-### IBM Cloud Functions (OpenWhisk)
+### OpenWhisk
 
 [**analysis.js**](analysis.js) holds the JavaScript code to perform the image analysis:
 
