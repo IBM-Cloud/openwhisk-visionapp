@@ -2,13 +2,13 @@
 
 Vision Appは、自動でイメージにタグを付けて顔認識をする、サンプルiOSアプリケーションです。 これらの仕組みは、IBM visual recognitionテクノロジーが使用されています。
 
-写真を撮るか、既存の画像を選択し、アプリケーションでタグのリストを作成し、画像内の人物、建物、オブジェクトを検出します。結果はインターネットで共有できます。
+写真を撮るか、既存の画像を選択し、アプリケーションでタグのリストを作成し、画像内の人物、建物、オブジェクトを検出します。結果はインターネットで共有できます。
 
 <img src="xdocs/ios-simulator-screenshot.png" width="150"/> <img src="xdocs/ios-simulator-results.png" width="150"/> <img src="xdocs/ios-simulator-results-place.png" width="150"/>
 
 ## Overview
 
- IBM Cloud(Bluemix)で作成するこのアプリは以下の機能を使用します:
+ IBM Cloud(Bluemix)で作成するこのアプリは以下の機能を使用します:
   * Watson Visual Recognition
   * OpenWhisk
   * Cloudant
@@ -42,7 +42,7 @@ vision_analysis
 
 このアプリケーションは、画像をCloudantデータベースに送信します。次に、OpenWhiskアクションを呼び出して画像を分析し、分析結果を返します。
 
-このアプリケーションは、ユースケースの1例です。この例で実装されているOpenWhiskアクションを装備した別のユースケースは、検索機能を向上させるために画像をライブラリに自動的に分類します。同じOpenWhiskアクションですが、別のコンテキストで使用します。実際、このアクションでは、単一のサーバーを展開または管理することなく、クラウド内のイメージ分析用のマイクロサービスを作成しました。
+このアプリケーションは、ユースケースの1例です。この例で実装されているOpenWhiskアクションを利用した別のユースケースは、検索機能を向上させるために画像をライブラリに自動的に分類します。同じOpenWhiskアクションですが、別のコンテキストで使用します。実際、このアクションでは、単一のサーバーを展開または管理することなく、クラウド内のイメージ分析用のマイクロサービスを作成しました。
 
 ## 事前作業
 
@@ -60,7 +60,7 @@ vision_analysis
   git clone https://github.com/IBM-Bluemix/openwhisk-visionapp.git
   ```
 
-* または [this archive](https://github.com/IBM-Bluemix/openwhisk-visionapp/archive/master.zip) から、圧縮したファイルをダウンロードして下さい。
+* または [this archive](https://github.com/IBM-Bluemix/openwhisk-visionapp/archive/master.zip) から、圧縮したファイルをダウンロードして下さい。
 
 ### IBM Cloud (Bluemix) サービス
 
@@ -164,20 +164,19 @@ iOSアプリケーションで使用するために、作成したIBM Cloud (Bl
   The picture and the highlighted tags are included in the message.
   The message can be edited before posting.
 
-## Code Structure
+## ソースコード構成
 
 ### IBM Cloud Functions (OpenWhisk)
 
-[**analysis.js**](analysis.js) holds the JavaScript code to perform the image analysis:
+[**analysis.js**](analysis.js) は、画像解析を行うためのJavaScriptコードを含んでいます。
 
-1. It retrieves the image data from the Cloudant document.
-The data has been attached by the iOS app as an attachment named "image.jpg".
-1. It saves the image file locally.
-1. If needed, it resizes the image so that it matches the requirements of the Watson service
-1. It calls Watson
-1. It returns the results of the analysis
+1. 画像データをCloudantドキュメントから取り出します。そのデータは、iOSアプリケーションによって"image.jpg"という名前でアタッチされます。
+1. 画像ファイルとしてローカルへ保存します。
+1. 必要に応じ、Watsonサービスで定められたサイズへリサイズします。
+1. Watson API を呼び出します。
+1. 解析結果を返却します。
 
-The action runs asynchronously.
+アクションはそれぞれ非同期で実行します。
 
 ### iOS
 
@@ -192,19 +191,21 @@ The action runs asynchronously.
 
 ## Contribute
 
-Please create a pull request with your desired changes.
+希望の変更点はどうぞプルリクエストを送って下さい。
+これは [IBM-Bluemix/openwhisk-visionapp](https://github.com/IBM-Bluemix/openwhisk-visionapp) に直接送るのが効率的と思います。
 
-## Troubleshooting
+## トラブルシューティング
 
 ### OpenWhisk
 
-Polling activations is good start to debug the OpenWhisk action execution. Run
+アクティベーションへのポーリングは、Cloud Functions (OpenWhisk)のアクションをデバッグするのに便利です。
+以下を実行します。
 ```
 wsk activation poll
 ```
-and submit a picture for analysis.
+解析向けに画像をSubmitします。
 
-A typical activation log when everything goes fine will look like:
+全てが上手く実行されたときの典型的なアクティベーションログはこんな感じです。
 ```
 Activation: vision-analysis (123fb4230902822202029fff436a94be745)
 2016-02-23T16:17:53.955350233Z stdout: [ 49382920fdb022039403934b3bd33d00 ] Processing image.jpg from document
@@ -213,9 +214,8 @@ Activation: vision-analysis (123fb4230902822202029fff436a94be745)
 
 ### iOS
 
-The application prints several statements to the console as it uploads,
-analyzes and updates the user interface.
-Make sure you correctly updated the constants in ServerlessAPI.swift.
+アプリケーションはアップロード、解析、UIの更新など、いくつかのステートメントをコンソールへ出力します。
+ServerlessAPI.swiftの定数を正しいかどうか見直して下さい。
 
 ## Credits
 
