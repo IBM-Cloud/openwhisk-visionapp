@@ -49,6 +49,8 @@ vision_analysis
 * IBM Cloud(Bluemix) アカウントの作成。IBM Cloudへ [Sign up][bluemix_signup_url] へサインアップするか、既存のアカウントを利用してください。
 * IBM Cloud Functions(OpenWhisk) へのアクセスはこちら [Sign up for Bluemix OpenWhisk](https://console.ng.bluemix.net/openwhisk) から。
 * XCode 8.1, iOS 10, Swift 3.0
+* wskコマンドのインストール (https://openwhisk.ng.bluemix.net/cli/go/download/)
+* Gitのインストール (http://git-scm.com/)
 
 ## 環境の準備
 
