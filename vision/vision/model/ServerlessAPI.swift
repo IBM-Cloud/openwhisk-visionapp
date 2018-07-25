@@ -19,7 +19,7 @@ import SwiftyJSON
 import OpenWhisk
 
 /**
- * Processes images with IBM Bluemix OpenWhisk
+ * Processes images with IBM Cloud Functions
  */
 class ServerlessAPI {
   
@@ -30,8 +30,8 @@ class ServerlessAPI {
   let ActionNamespace = "_"
   let ActionName = "vision-analysis"
   
-  // TODO: Put your OpenWhisk key and token here
-  // You can obtain the values at https://console.ng.bluemix.net/openwhisk/sdk/ios
+  // TODO: Put your Cloud Functions key and token here
+  // You can obtain the values at https://console.bluemix.net/openwhisk/learn/ios-sdk
   let WhiskAppKey = ""
   let WhiskAppSecret = ""
   

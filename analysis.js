@@ -197,9 +197,11 @@ function analyzeImage(args, fileName, analyzeCallback) {
         fs.createReadStream(fileName).pipe(
           request({
               method: "POST",
-              url: "https://gateway-a.watsonplatform.net/visual-recognition/api/v3/detect_faces" +
-                "?api_key=" + args.watsonApiKey +
-                "&version=2016-05-20",
+              auth: {
+                username: 'apikey',
+                password: args.watsonApiKey
+              },
+              url: 'https://gateway.watsonplatform.net/visual-recognition/api/v3/detect_faces?version=2018-03-19',
               headers: {
                 'Content-Length': fs.statSync(fileName).size
               },
@@ -221,10 +223,11 @@ function analyzeImage(args, fileName, analyzeCallback) {
         fs.createReadStream(fileName).pipe(
           request({
               method: "POST",
-              url: "https://gateway-a.watsonplatform.net/visual-recognition/api/v3/classify" +
-                "?api_key=" + args.watsonApiKey +
-                "&classifier_ids=default,food" +
-                "&version=2016-05-20",
+              auth: {
+                username: 'apikey',
+                password: args.watsonApiKey
+              },
+              url: "https://gateway.watsonplatform.net/visual-recognition/api/v3/classify?version=2018-03-19",
               headers: {
                 'Content-Length': fs.statSync(fileName).size
               },

@@ -1,4 +1,4 @@
-# Vision App - a sample iOS app for image tagging and face detection built with IBM Bluemix OpenWhisk
+# Vision App - a sample iOS app for image tagging and face detection built with IBM Cloud Functions
 
 Vision App is a sample iOS application to automatically tag images and detect faces
 by using IBM visual recognition technologies.
@@ -10,9 +10,9 @@ people, buildings, objects in the picture. Share the results with your network.
 
 ## Overview
 
- Built using IBM Bluemix, the application uses:
+ Built using IBM Cloud, the application uses:
   * Watson Visual Recognition
-  * OpenWhisk
+  * Cloud Functions
   * Cloudant
 
 ![Architecture](https://g.gravizo.com/source/vision_analysis?https%3A%2F%2Fraw.githubusercontent.com%2FIBM-Bluemix%2Fopenwhisk-visionapp%2Fmaster%2FREADME.md)
@@ -52,8 +52,8 @@ for image analysis in the cloud, without deploying or managing a single server.
 
 ## Application Requirements
 
-* IBM Bluemix account. [Sign up][bluemix_signup_url] for Bluemix, or use an existing account.
-* IBM Bluemix OpenWhisk early access. [Sign up for Bluemix OpenWhisk](https://console.ng.bluemix.net/openwhisk).
+* IBM Cloud account. [Sign up][bluemix_signup_url] for IBM Cloud, or use an existing account.
+* IBM Cloud Functions
 * XCode 8.1, iOS 10, Swift 3.0
 
 ## Preparing the environment
@@ -68,38 +68,42 @@ for image analysis in the cloud, without deploying or managing a single server.
 
 * or Download and extract the source code from [this archive](https://github.com/IBM-Bluemix/openwhisk-visionapp/archive/master.zip)
 
-### Create the Bluemix Services
+### Create the IBM Cloud Services
 
-1. Open the IBM Bluemix console
+1. Open the IBM Cloud console
 
 1. Create a Cloudant NoSQL DB service instance named **cloudant-for-vision**
 
+1. Create a new set of credentials for the Cloudant NoSQL DB service
+   
 1. Open the Cloudant service dashboard and create a new database named **openwhisk-vision**
 
 1. Create a Watson Visual Recognition service instance named **visualrecognition-for-vision**
 
+1. Create a new set of credentials for the Watson Visual Recognition service
+
 ***Note***: *if you have existing instances of these services, you don't need to create new instances.
 You can simply reuse the existing ones.*
 
-### Deploy OpenWhisk Actions
+### Deploy Cloud Functions actions
 
-1. Ensure your OpenWhisk command line interface is property configured with:
+1. Ensure your Cloud Functions command line interface is property configured with:
 
   ```
-  wsk list
+  ibmcloud cloud-functions list
   ```
 
 1. Create the action using the following command line replacing the placeholders with
-the credentials obtained from the respective service dashboards in Bluemix:
+the credentials obtained from the respective service dashboards in IBM Cloud:
 
   ```
-  wsk action create -p cloudantUrl [URL] -p cloudantDbName openwhisk-vision -p watsonApiKey [123] vision-analysis analysis.js
+  ibmcloud cloud-functions action create -p cloudantUrl [URL] -p cloudantDbName openwhisk-vision -p watsonApiKey [123] vision-analysis analysis.js
   ```
 
 ### Configure XCode
 
 To configure the iOS application, you need the credentials of the Cloudant service created above,
-your OpenWhisk authorization key.
+your Cloud Functions authorization key.
 
 1. Open **vision.xcworkspace** with XCode
 
@@ -108,10 +112,10 @@ your OpenWhisk authorization key.
 1. Set the value of the constant **CloudantUrl** to the Cloudant service credentials url.
 
 1. Set the value of the constants **WhiskAppKey** and **WhiskAppSecret**
-to your OpenWhisk credentials. You can retrieve them from the [iOS SDK configuration page](https://console.ng.bluemix.net/openwhisk/learn/ios-sdk) or you can retrieve the key and secret with the following CLI command:
+to your OpenWhisk credentials. You can retrieve them from the [iOS SDK configuration page](https://console.bluemix.net/openwhisk/learn/ios-sdk) or you can retrieve the key and secret with the following CLI command:
 
   ```
-  wsk property get --auth
+  ibmcloud cloud-functions property get --auth
   ```
 
   ```
@@ -201,7 +205,7 @@ Please create a pull request with your desired changes.
 
 Polling activations is good start to debug the OpenWhisk action execution. Run
 ```
-wsk activation poll
+ibmcloud cloud-functions activation poll
 ```
 and submit a picture for analysis.
 
